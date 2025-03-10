@@ -1,0 +1,47 @@
+.content {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.box {
+    width: 165px;
+    height: 200px;
+    text-align: center;
+    /* background-color: #f0f0f0; */
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+    font-size: small;
+    font-weight: 700;
+}
+
+.music_image {
+    width: 160px;
+    height: 160px;
+    /* background-color: pink; */
+    border-radius: 12px;
+    background-image: url("../image/塞壬唱片_winged step.png");
+    background-size: cover;
+}
+
+.music_introduction {
+    width: 100%;
+    height: 40px;
+    display: -webkit-box;
+    /* 将元素设置为弹性盒子 */
+    -webkit-box-orient: vertical;
+    /* 设置内容垂直排列 */
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    /* 限制显示的行数 */
+    overflow: hidden;
+    /* 隐藏溢出内容 */
+    text-overflow: ellipsis;
+    /* 用省略号代替溢出部分 */
+}
+
+.music_introduction:hover {
+    text-decoration: underline;
+}

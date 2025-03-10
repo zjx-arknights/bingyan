@@ -1,0 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    width: 100%;
+    /* 图片宽度填满容器 */
+    height: 100%;
+    /* 图片高度填满容器 */
+}
+
+ul {
+    list-style: none;
+    /* 去除圆点 */
+}
