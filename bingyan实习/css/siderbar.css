@@ -1,0 +1,38 @@
+.sidebar_create {
+    transition: width 0.3s ease;
+}
+
+.sidebar {
+    transition: width 0.3s ease;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.sidebar .sidebarin_active {
+    width: 20px;
+}
+
+.sidebar_active {
+    width: 60px;
+
+}
+
+.search_bar_active,
+.music_types_active,
+.exchange_active {
+    left: 100px;
+}
+
+.sidebar_create_image {
+    display: inline-block;
+    height: 22px;
+    width: 22px;
+    margin-right: 10px;
+    background-image: url("../image/添加歌单.png");
+    background-size: cover;
+}
+
+.sidebar_create .text {
+    display: inline-block;
+    background-color: pink;
+}

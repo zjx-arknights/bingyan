@@ -6,8 +6,9 @@
 }
 
 /* 顶部搜索栏 */
-.search-bar {
 
+
+.search-bar {
     position: fixed;
     top: 0;
     left: 200px;
@@ -16,6 +17,7 @@
     background-color: white;
     /* background-color: #333; */
     border-bottom: 1px solid rgba(229, 229, 229);
+    transition: all 0.3s;
     z-index: 1000;
     /* display: flex;
     align-items: center;
@@ -28,6 +30,7 @@
     margin: 17px 20px 0 50px;
     height: 20px;
     width: 20px;
+    cursor: pointer;
 }
 
 .search-bar .to_right {
@@ -35,6 +38,7 @@
     margin-top: 15px;
     height: 20px;
     width: 20px;
+    cursor: pointer;
 }
 
 
@@ -78,6 +82,7 @@
     height: calc(100vh - 80px);
     /* 减去搜索栏和播放栏的高度 */
     /* background-color: rgba(248, 248, 248); */
+
     color: (153, 153, 165);
 
     z-index: 999;
@@ -85,8 +90,9 @@
 
 .sidebar_up {
     margin-top: 60px;
-    color: rgba(186, 186, 188);
+    color: rgba(153, 153, 153);
     background-color: rgba(248, 248, 248);
+    border-radius: 20px 20px 0 0;
 }
 
 /* .sidebar_up_bottom {
@@ -97,11 +103,17 @@
     height: calc(100vh - 300px);
     background-color: rgba(248, 248, 248);
     overflow-y: auto;
+    border-radius: 0 0 20px 20px;
     /* 允许垂直滚动 */
 }
 
 .sidebar .list {
+    width: 160px;
     padding: 10px;
+    padding-left: 12px;
+    margin-left: 10px;
+    height: 22px;
+    border-radius: 10px;
     cursor: pointer;
 }
 
@@ -112,7 +124,6 @@
 
 .sidebar .list:hover {
     background-color: rgba(1, 122, 254);
-    border-radius: 10px;
     color: whitesmoke;
 }
 
@@ -158,6 +169,7 @@
     left: 250px;
     /* width: 500px; */
     height: 40px;
+    transition: left 0.3s;
 }
 
 
@@ -203,6 +215,7 @@ li:nth-child(even) {
     left: 250px;
     height: 40px;
     /* background-color: pink; */
+    transition: left 0.3s;
 }
 
 /* 每个音乐类型 */
@@ -222,3 +235,8 @@ li:nth-child(even) {
 /* .ellipsis {
     /* display: none; */
 /* 默认隐藏 */
+
+.sidebar .list {
+    /* width: 20px; */
+    overflow: hidden;
+}
