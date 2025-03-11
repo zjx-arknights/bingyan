@@ -6,11 +6,14 @@
 }
 
 .box {
-    flex: 1 0 18%;
+    flex: 0 0 calc(20% - 20px);
+    /* 固定宽度，每行显示5个盒子 */
+    height: 200px;
+    /* 底部间距 */
     /* 子项占据 18% 宽度，允许调整 */
     /* min-width: 120px; 设置最小宽度，避免子项过小 */
     height: 200px;
-
+    justify-content: flex-start;
     /* background-color: #f0f0f0; */
     margin-bottom: 30px;
     border-radius: 4px;

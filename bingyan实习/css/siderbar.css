@@ -24,9 +24,10 @@
 }
 
 .sidebar_create_image {
-    display: inline-block;
+    float: left;
     height: 22px;
     width: 22px;
+    margin-right: 10px;
     margin-right: 10px;
     background-image: url("../image/添加歌单.png");
     background-size: cover;
@@ -34,5 +35,44 @@
 
 .sidebar_create .text {
     display: inline-block;
-    background-color: pink;
+}
+
+/* 菜单项 */
+.menu-item {
+    padding: 10px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    position: relative;
+    /* 为弹出内容定位 */
+}
+
+/* 内容面板 */
+.sidebar_content {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.panel {
+    position: absolute;
+    top: 100%;
+    /* 初始隐藏在下方 */
+    left: 0;
+    right: 0;
+
+    transition: top 0.3s;
+    /* z-index: 1; */
+    /* 确保面板在菜单项上方 */
+}
+
+/* 显示面板 */
+.list_appear {
+    top: 0;
+    /* 弹出显示 */
+}
+
+.sidebar .sidebar_in .sidebar_content .panel .list:hover {
+    background-color: rgba(255, 255, 255);
 }

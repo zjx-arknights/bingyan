@@ -19,3 +19,25 @@ sidebar_shrink.addEventListener('click', () => {
     music_types.classList.toggle('music_types_active')
     content.classList.toggle('content_active')
 })
+
+// 获取菜单项和面板
+const createPlaylist = document.getElementById('createPlaylist');
+const favoritePlaylist = document.getElementById('favoritePlaylist');
+const createPanel = document.getElementById('createPanel');
+const favoritePanel = document.getElementById('favoritePanel');
+
+// 点击“创建歌单”
+createPlaylist.addEventListener('click', () => {
+    // 隐藏收藏歌单面板
+    favoritePanel.classList.remove('list_appear');
+    // 显示创建歌单面板
+    createPanel.classList.toggle('list_appear');
+});
+
+// 点击“收藏歌单”
+favoritePlaylist.addEventListener('click', () => {
+    // 隐藏创建歌单面板
+    createPanel.classList.remove('list_appear');
+    // 显示收藏歌单面板
+    favoritePanel.classList.toggle('list_appear');
+});
