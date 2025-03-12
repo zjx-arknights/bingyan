@@ -1,0 +1,23 @@
+{
+  "data": {
+    "info": [
+      {
+        "hash": "歌曲唯一HASH",
+        "filename": "Beyond - 真的爱你",
+        "album_id": "专辑ID",
+        "privilege": 8,          // 关键字段：播放权限标识
+        "price": 0,              // 关键字段：价格（0=免费）
+        "is_pay": 0,             // 关键字段：是否付费（0=免费）
+        "status": 0              // 关键字段：状态（0=正常）
+      },
+      {
+        "hash": "另一个HASH",
+        "filename": "其他版本 - 真的爱你",
+        "privilege": 0,
+        "price": 200,
+        "is_pay": 1,
+        "status": 404           // 状态异常表示不可播放
+      }
+    ]
+  }
+}

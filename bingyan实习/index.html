@@ -5,12 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>音乐播放页面</title>
-    <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/setting.css">
     <link rel="stylesheet" href="css/content.css">
     <link rel="stylesheet" href="css/siderbar.css">
-    <link rel="stylesheet" href="css/player-bar.css">
+    <link rel="stylesheet" href="css/playerbar.css">
+    <link rel="stylesheet" href="css/musiclist_all.css">
+    <link rel="stylesheet" href="css/musicplaybox.css">
 </head>
 
 <body>
@@ -175,8 +177,8 @@
         </div>
     </div>
     <!-- 底部播放栏 -->
-    <div class="player-bar">
-        <div class="player-bar_left">
+    <div class="playerbar">
+        <div class="playerbar_left">
             <div class="music_list_all">
                 <div class="music_list_all_image">11111111</div>
             </div>
@@ -186,19 +188,55 @@
                 <div class="music_synopsis">333</div>
             </div>
         </div>
-        <div class="player-bar_middle">
-            <div class="player-bar_middle_up">
-                <div class="player-bar_middle_up_left">11</div>
-                <div class="player-bar_middle_up_middle">11</div>
-                <div class="player-bar_middle_up_right">11</div>
+        <div class="playerbar_middle">
+            <div class="playerbar_middle_up">
+                <div class="playerbar_middle_up_left">11</div>
+                <div class="playerbar_middle_up_middle">22</div>
+                <div class="playerbar_middle_up_right">77</div>
+            </div>
+            <div class="playerbar_middle_down">
+                <audio controls>
+                    <source
+                        src="https://sharefs.tx.kugou.com/202503122227/497e434acd02a4af21fcb98fd0a086b0/v3/46c2bf4421bb97d4883bd97be705c25c/yp/full/ap1000_us0_pi409_s2221786788.mp3"
+                        type="audio/mp3">
+                    </source>
+                    您的浏览器不支持 audio 元素。
+                </audio>
             </div>
         </div>
-        <div class="player-bar_right"></div>
+        <div class="playerbar_right">
+            <div class="control">
+                <div class="playerbar_right_addmusic">
+                    <div class="playerbar_right_addmusic_image">111</div>
+                </div>
+                <div class="cycleway">
+                    <div class="cycleway_image">222</div>
+                </div>
+            </div>
+            <div class="musicscreen">
+                <div class="musicscreen_image">333</div>
+            </div>
+        </div>
     </div>
+    <div class="mask"></div>
+    <!-- 弹出面板 -->
+    <div class="popup-panel">
+        <div class="music_list_all_head">111</div>
+
+        <div class="panel-content">
+            <div style="height: 800px">可滚动内容区域...</div>
+        </div>
+
+    </div>
+    <!-- 歌曲界面 -->
+    <div class="musicplaybox"></div>
 </body>
+<script src="js/globalData.js"></script>
 <script src="js/index.js"></script>
 <script src="js/setting.js"></script>
 <script src="js/content.js"></script>
 <script src="js/sidebar.js"></script>
+<script src="js/playerbar.js"></script>
+<script src="js/musiclist_all.js"></script>
 
 </html>

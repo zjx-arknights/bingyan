@@ -1,0 +1,32 @@
+.musicplaybox {
+    position: fixed;
+    left: 1%;
+    width: 97%;
+    bottom: 95px;
+    height: calc(100vh - 100px);
+    z-index: 1002;
+    transform: translateY(110%);
+    /* 初始隐藏 */
+    transition: transform 0.7s;
+}
+
+.musicplaybox::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    left: -30px;
+    right: -30px;
+    bottom: -50px;
+    background-image: url('../image/塞壬唱片_winged\ step.png');
+    /* 背景图片 */
+    background-size: cover;
+    background-position: center;
+    filter: blur(30px);
+    /* 模糊效果 */
+    z-index: -1;
+    /* 让伪元素在背景层 */
+}
+
+.musicplaybox_active {
+    transform: translateY(0);
+}

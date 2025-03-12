@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>API 调用工具</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        input {
+            width: 70%;
+            padding: 8px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 8px 16px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        pre {
+            background: white;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>API 调用工具</h1>
+        <div>
+            <input type="text" id="apiInput" placeholder="输入要调用的 API 地址 (例如：https://api.example.com/data)">
+            <button onclick="callApi()">发送请求</button>
+        </div>
+        <div style="margin-top: 20px;">
+            <h3>响应结果：</h3>
+            <pre id="result"></pre>
+        </div>
+    </div>
+
+    <script>
+        async function callApi() {
+            const apiUrl = document.getElementById('apiInput').value;
+            const resultElement = document.getElementById('result');
+
+            if (!apiUrl) {
+                alert('请输入 API 地址');
+                return;
+            }
+
+            resultElement.textContent = '请求中...';
+
+            try {
+                const response = await fetch('http://localhost:3000/call-api', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ apiUrl })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultElement.textContent = JSON.stringify(data, null, 2);
+                } else {
+                    resultElement.textContent = `错误: ${data.error}\n详情: ${JSON.stringify(data.details)}`;
+                }
+            } catch (error) {
+                resultElement.textContent = `请求失败: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+
+</html>

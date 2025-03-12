@@ -11,7 +11,7 @@
 .search-bar {
     position: fixed;
     top: 0;
-    left: 200px;
+    left: 240px;
     width: calc(100vw - 200px);
     height: 50px;
     background-color: white;
@@ -155,11 +155,11 @@
 
 
 /* 底部播放栏 */
-.player-bar {
+.playerbar {
     position: fixed;
     bottom: 6px;
-    left: 2%;
-    width: 96%;
+    left: 1%;
+    width: 97%;
     height: 90px;
     background-color: rgba(255, 255, 255, 0.8);
     color: white;

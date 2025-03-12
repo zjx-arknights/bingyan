@@ -1,0 +1,14 @@
+{
+    "music0": {
+        "id": "0",
+        "image": "E:\\vscode前端\\bingyan实习\\music\\musicimage\\0.jpg",
+        "lrc": "E:\\vscode前端\\bingyan实习\\music\\lrc\\0.lrc",
+        "mp3": "E:\\scode前端\\bingyan实习\\music\\mp3\\0.mp3"
+    },
+    "music1": {
+        "id": "1",
+        "image": "E:\\vscode前端\\bingyan实习\\music\\musicimage\\1.jpg",
+        "lrc": "E:\\vscode前端\\bingyan实习\\music\\lrc\\1.lrc",
+        "mp3": "E:\\scode前端\\bingyan实习\\music\\mp3\\1.mp3"
+    }
+}

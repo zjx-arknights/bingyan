@@ -1,0 +1,204 @@
+.playerbar {
+    display: flex;
+    justify-content: center;
+    z-index: 1004;
+}
+
+.playerbar_left {
+    display: flex;
+    background-color: #f44336;
+    border-radius: 20px 0 0 20px;
+    flex-grow: 1;
+    /* 左侧盒子根据内容自动撑开 */
+    min-width: 0;
+    /* 防止内容溢出容器 */
+    overflow: hidden;
+    height: 100%;
+    background-color: pink;
+    transition: transform 0.5s, opacity 0.5s;
+}
+
+.playerbar_middle {
+    position: relative;
+
+    /* margin-right: 10%; */
+    background-color: #2196F3;
+    flex-shrink: 0;
+    /* 中间盒子的宽度保持固定 */
+    width: 30%;
+    height: 100%;
+    /* 设置中间盒子的固定宽度 */
+    text-align: center;
+    transition: transform 0.8s;
+
+}
+
+.playerbar_right {
+    background-color: #FFC107;
+    flex-shrink: 0;
+    /* 右侧盒子的宽度固定 */
+    height: 100%;
+    width: 35%;
+    /* 设置右侧盒子的固定宽度 */
+    text-align: center;
+}
+
+.music_list_all {
+    display: flex;
+    width: 130px;
+    height: 100%;
+    background-color: yellow;
+    justify-content: center;
+    align-items: center;
+}
+
+.music_list_all_image {
+    width: 40px;
+    height: 40px;
+    background-color: blueviolet;
+    cursor: pointer;
+}
+
+.splice {
+    margin-top: 35px;
+    height: 30%;
+    width: 2px;
+    background-color: black;
+
+}
+
+.music_information {
+    margin-left: 30px;
+    height: 50px;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    background-color: red;
+}
+
+.music_name {
+    height: 30px;
+    width: 100%;
+    background-color: aquamarine;
+    line-height: 30px;
+    color: black;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.music_synopsis {
+    height: 20px;
+    width: 100%;
+    line-height: 20px;
+    background-color: bisque;
+    color: rgba(115, 152, 187);
+
+}
+
+.music_synopsis:hover {
+    text-decoration: underline;
+}
+
+.playerbar_middle_up {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    height: 90px;
+    width: 100%;
+    top: -35px;
+    background-color: red;
+}
+
+.playerbar_middle_up_left {
+    height: 90px;
+    width: 60px;
+    background-color: #FFC107;
+}
+
+.playerbar_middle_up_middle {
+    height: 90px;
+    width: 90px;
+    margin: 0 30px;
+    background-color: #FFC107;
+    border-radius: 50%;
+}
+
+.playerbar_middle_up_right {
+    height: 90px;
+    width: 60px;
+    background-color: #FFC107;
+}
+
+.playerbar_middle_down {
+    display: flex;
+    margin-top: 55px;
+    height: 35px;
+    width: 100%;
+}
+
+
+.disappear {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.move {
+    transform: translateX(-60%)
+}
+
+.playerbar_right {
+    display: flex;
+    border-radius: 0 20px 20px 0;
+}
+
+.playerbar_right .control {
+
+    display: flex;
+
+    height: 100%;
+    width: 150px;
+    margin-left: 150px;
+    background-color: aquamarine;
+}
+
+.playerbar_right_addmusic,
+.cycleway {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 75px;
+    border-right: 1px solid black;
+}
+
+.musicscreen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 80px;
+    background-color: #2196F3;
+}
+
+.cycleway_image {
+    height: 40px;
+    width: 40px;
+    background-color: #f44336;
+    cursor: pointer;
+}
+
+.playerbar_right_addmusic_image {
+    height: 40px;
+    width: 40px;
+    background-color: #f44336;
+    cursor: pointer;
+}
+
+.musicscreen_image {
+    height: 40px;
+    width: 40px;
+    background-color: #f44336;
+    cursor: pointer;
+}
+
+/* 歌曲列表 */

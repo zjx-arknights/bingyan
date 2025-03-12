@@ -1,0 +1,60 @@
+/* 遮罩层 */
+.mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: 1003;
+}
+
+.mask.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 弹出面板 */
+.popup-panel {
+    position: fixed;
+    left: 30px;
+    /* 左侧间距 */
+    bottom: 120px;
+    /* 距离底部菜单栏20px */
+    width: calc(30% - 40px);
+    /* 屏幕一半减去左右边距 */
+    max-width: 600px;
+    /* 最大宽度限制 */
+    height: 50vh;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(150%);
+    /* 初始隐藏位置 */
+    transition: transform 0.3s;
+    z-index: 1003;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.popup-panel.active {
+    transform: translateY(0);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .popup-panel {
+        width: calc(100% - 40px);
+        /* 小屏幕时占满宽度 */
+        left: 20px;
+        bottom: 70px;
+    }
+}
+
+.panel-content {
+    height: calc(100% - 40px);
+    overflow-y: auto;
+}
