@@ -30,7 +30,7 @@
             <div class="sidebar_in">
                 <div class="list sidebar_create menu-item" id="createPlaylist">
                     <div class="sidebar_create_image"></div>
-                    <div class="text">创建歌单</div>
+                    <div class="text">创建的歌单</div>
                 </div>
                 <div class="list sidebar_up_bottom menu-item" id="favoritePlaylist">收藏的歌单</div>
                 <div class="sidebar_content">
@@ -92,8 +92,8 @@
             </ul>
         </div>
         <div class="music_types">
-            <div class="music_types_list">全部</div>
-            <div class="music_types_list">排行榜</div>
+            <div class="music_types_list music_types_list_active" id="test_with_lrc">测试（带歌词）</div>
+            <div class="music_types_list" id="hot">热门（可用）</div>
             <div class="music_types_list">流行</div>
             <div class="music_types_list">轻音乐</div>
             <div class="music_types_list">摇滚</div>
@@ -106,74 +106,13 @@
         </div>
         <div class="content">
             <div class="box">
-                <div class="music_image"></div>
-                <div class="music_introduction">冰岩冰岩冰岩冰岩冰岩冰岩冰岩冰岩冰岩冰岩冰岩冰岩冰岩冰岩冰岩冰岩冰岩冰岩冰岩冰岩冰岩冰岩冰岩</div>
+                <div class="music_image" id="test1"></div>
+                <div class="music_introduction"></div>
             </div>
             <div class="box">
-                <div class="music_image"></div>
-                <div class="music_introduction">内容1</div>
+                <div class="music_image" id="test2"></div>
+                <div class="music_introduction"></div>
             </div>
-            <div class="box">
-                <div class="music_image"></div>
-                <div class="music_introduction">内容2</div>
-            </div>
-            <div class="box">
-                <div class="music_image"></div>
-                <div class="music_introduction">内容3</div>
-            </div>
-            <div class="box">
-                <div class="music_image"></div>
-                <div class="music_introduction">内容4</div>
-            </div>
-            <div class="box">
-                <div class="music_image"></div>
-                <div class="music_introduction">内容5</div>
-            </div>
-            <div class="box">
-                <div class="music_image"></div>
-                <div class="music_introduction">内容6</div>
-            </div>
-            <div class="box">
-                <div class="music_image"></div>
-                <div class="music_introduction">内容7</div>
-            </div>
-            <div class="box">
-                <div class="music_image"></div>
-                <div class="music_introduction">内容8</div>
-            </div>
-            <div class="box">
-                <div class="music_image"></div>
-                <div class="music_introduction">内容9</div>
-            </div>
-            <div class="box">
-                <div class="music_image"></div>
-                <div class="music_introduction">内容10</div>
-            </div>
-            <div class="box">
-                <div class="music_image"></div>
-                <div class="music_introduction">内容11</div>
-            </div>
-            <div class="box">
-                <div class="music_image"></div>
-                <div class="music_introduction">内容12</div>
-            </div>
-            <div class="box">
-                <div class="music_image"></div>
-                <div class="music_introduction">内容13</div>
-            </div>
-            <div class="box">
-                <div class="music_image"></div>
-                <div class="music_introduction">内容14</div>
-            </div>
-            <div class="box">
-                <div class="music_image"></div>
-                <div class="music_introduction">内容1</div>
-            </div>
-            <div class="box">
-                <div class="music_image"></div>
-                <div class="music_introduction">内容1</div>
-            </div>
-
         </div>
     </div>
     <!-- 底部播放栏 -->
@@ -190,17 +129,15 @@
         </div>
         <div class="playerbar_middle">
             <div class="playerbar_middle_up">
-                <div class="playerbar_middle_up_left">11</div>
-                <div class="playerbar_middle_up_middle">22</div>
-                <div class="playerbar_middle_up_right">77</div>
+                <div class="playerbar_middle_up_left"></div>
+                <div class="playerbar_middle_up_middle">
+                    <!-- <div class="playerbar_middle_up_middle_stopmask"></div> -->
+                </div>
+                <div class="playerbar_middle_up_right"></div>
             </div>
             <div class="playerbar_middle_down">
-                <audio controls>
-                    <source
-                        src="https://sharefs.tx.kugou.com/202503122227/497e434acd02a4af21fcb98fd0a086b0/v3/46c2bf4421bb97d4883bd97be705c25c/yp/full/ap1000_us0_pi409_s2221786788.mp3"
-                        type="audio/mp3">
-                    </source>
-                    您的浏览器不支持 audio 元素。
+                <audio controls hidden id="audio">
+
                 </audio>
             </div>
         </div>
@@ -228,15 +165,35 @@
         </div>
 
     </div>
+    <!-- 添加歌单 -->
+    <div class="add_music_to_mylist">
+        <div class="add_music_to_mylist_head">添加到我的歌单</div>
+        <div class="add_music_to_mylist_content">
+            <div class="add_music_to_mylist_list" data-id="list1">111</div>
+            <div class="add_music_to_mylist_list" data-id="list1">111</div>
+            <div class="add_music_to_mylist_list" data-id="list1">111</div>
+
+
+        </div>
+    </div>
     <!-- 歌曲界面 -->
-    <div class="musicplaybox"></div>
+    <div class="musicplaybox">
+        <div class="musicplaybox_left">
+            <div class="musicplaybox_left_image"></div>
+            <div class="musicplaybox_left_information">
+                <div class="musicplaybox_left_information_name">efuhas</div>
+                <div class="musicplaybox_left_information_introduction">1321342332</div>
+            </div>
+
+        </div>
+    </div>
 </body>
 <script src="js/globalData.js"></script>
 <script src="js/index.js"></script>
 <script src="js/setting.js"></script>
-<script src="js/content.js"></script>
 <script src="js/sidebar.js"></script>
 <script src="js/playerbar.js"></script>
 <script src="js/musiclist_all.js"></script>
+<script src="js/audio.js"></script>
 
 </html>

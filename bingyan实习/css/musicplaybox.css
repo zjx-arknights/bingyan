@@ -17,7 +17,9 @@
     left: -30px;
     right: -30px;
     bottom: -50px;
-    background-image: url('../image/塞壬唱片_winged\ step.png');
+    /* background-image: url('../image/塞壬唱片_wingedstep.png'); */
+    background-image: var(--dynamic-bg);
+    /* 使用 CSS 变量 */
     /* 背景图片 */
     background-size: cover;
     background-position: center;
@@ -29,4 +31,62 @@
 
 .musicplaybox_active {
     transform: translateY(0);
+}
+
+.musicplaybox_left {
+    position: relative;
+    width: 50%;
+    height: 100%;
+
+}
+
+.musicplaybox_left_image {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    right: 40px;
+    top: 50px;
+    border-radius: 15px;
+    /* background-image: url('../image/塞壬唱片_wingedstep.png'); */
+    background-size: cover;
+
+}
+
+.musicplaybox .musicplaybox_left .musicplaybox_left_image::after {
+    content: "";
+    background: inherit;
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(20px) brightness(80%);
+    z-index: -1;
+}
+
+.musicplaybox_left_information {
+    position: absolute;
+    height: 80px;
+    width: 350px;
+    top: 425px;
+    right: 40px;
+    /* background-color: pink; */
+}
+
+.musicplaybox_left_information_name {
+    height: 50px;
+    width: 350px;
+    padding-left: 10px;
+    line-height: 50px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.musicplaybox_left_information_introduction {
+    height: 20px;
+    padding-left: 10px;
+    font-size: 16px;
+    line-height: 20px;
+    color: rgba(107, 107, 107);
 }

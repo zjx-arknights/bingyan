@@ -241,6 +241,22 @@ li:nth-child(even) {
     line-height: 40px;
 }
 
+.music_types_list:hover {
+    color: rgba(1, 122, 254);
+    background-color: rgba(240, 247, 255);
+}
+
+.ellipsis:hover {
+    color: rgba(1, 122, 254);
+    background-color: rgba(240, 247, 255);
+}
+
+.music_types_list_active {
+    color: rgba(1, 122, 254);
+    background-color: rgba(240, 247, 255);
+}
+
+
 /* 省略号 */
 /* .ellipsis {
     /* display: none; */

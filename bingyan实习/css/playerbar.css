@@ -2,11 +2,12 @@
     display: flex;
     justify-content: center;
     z-index: 1004;
+    border-radius: 20px;
 }
 
 .playerbar_left {
     display: flex;
-    background-color: #f44336;
+    /* background-color: #f44336; */
     border-radius: 20px 0 0 20px;
     flex-grow: 1;
     /* 左侧盒子根据内容自动撑开 */
@@ -14,7 +15,7 @@
     /* 防止内容溢出容器 */
     overflow: hidden;
     height: 100%;
-    background-color: pink;
+    /* background-color: pink; */
     transition: transform 0.5s, opacity 0.5s;
 }
 
@@ -22,7 +23,7 @@
     position: relative;
 
     /* margin-right: 10%; */
-    background-color: #2196F3;
+    /* background-color: #2196F3; */
     flex-shrink: 0;
     /* 中间盒子的宽度保持固定 */
     width: 30%;
@@ -47,7 +48,7 @@
     display: flex;
     width: 130px;
     height: 100%;
-    background-color: yellow;
+    /* background-color: yellow; */
     justify-content: center;
     align-items: center;
 }
@@ -61,6 +62,8 @@
 
 .splice {
     margin-top: 35px;
+    margin-left: 10px;
+    margin-right: 10px;
     height: 30%;
     width: 2px;
     background-color: black;
@@ -73,13 +76,13 @@
     width: 100%;
     margin-top: 20px;
     margin-bottom: 15px;
-    background-color: red;
+    /* background-color: red; */
 }
 
 .music_name {
     height: 30px;
     width: 100%;
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     line-height: 30px;
     color: black;
     font-weight: 700;
@@ -90,7 +93,7 @@
     height: 20px;
     width: 100%;
     line-height: 20px;
-    background-color: bisque;
+    /* background-color: bisque; */
     color: rgba(115, 152, 187);
 
 }
@@ -106,26 +109,50 @@
     height: 90px;
     width: 100%;
     top: -35px;
-    background-color: red;
+    /* background-color: red; */
 }
 
 .playerbar_middle_up_left {
-    height: 90px;
-    width: 60px;
+    margin-top: 30px;
+    height: 60px;
+    width: 40px;
+    border-radius: 20px;
     background-color: #FFC107;
 }
 
 .playerbar_middle_up_middle {
+    position: relative;
     height: 90px;
     width: 90px;
     margin: 0 30px;
-    background-color: #FFC107;
+    /* background-color: #FFC107; */
     border-radius: 50%;
+    background-size: cover;
+}
+
+.playerbar_middle_up_middle:hover .playerbar_middle_up_middle_startmask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-size: cover;
+    background-image: url(../image/开始播放.png);
+}
+
+.playerbar_middle_up_middle:hover .playerbar_middle_up_middle_stopmask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-size: cover;
+    background-image: url(../image/停止播放.png);
 }
 
 .playerbar_middle_up_right {
-    height: 90px;
-    width: 60px;
+    margin-top: 30px;
+    height: 60px;
+    width: 40px;
+    border-radius: 20px;
     background-color: #FFC107;
 }
 
@@ -134,6 +161,7 @@
     margin-top: 55px;
     height: 35px;
     width: 100%;
+    background-color: aqua;
 }
 
 
@@ -201,4 +229,45 @@
     cursor: pointer;
 }
 
-/* 歌曲列表 */
+/* 添加到我的歌单 */
+.add_music_to_mylist {
+    position: fixed;
+    height: 360px;
+    width: 400px;
+    top: calc(50vh - 180px);
+    left: calc(50vw - 200px);
+    background-color: white;
+    z-index: 1003;
+    display: none;
+}
+
+.add_music_to_mylist_active {
+    display: block;
+}
+
+.add_music_to_mylist_head {
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    font-size: 30px;
+    font-weight: 700;
+
+}
+
+.add_music_to_mylist_content {
+    height: 80%;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.add_music_to_mylist_list {
+    height: 60px;
+    width: 90%;
+    margin: 0 5%;
+    border-radius: 12px;
+}
+
+.add_music_to_mylist_list:hover {
+    background-color: rgba(227, 227, 229);
+}
