@@ -1,13 +1,12 @@
 音乐搜索接口:
 1.http://mobilecdn.kugou.com/api/v3/search/song?format=json&keyword={关键字}&page={页数量}
 
-目前状态:可用
 延迟:36Ms
 请求链接示例:
 http://mobilecdn.kugou.com/api/v3/search/song?format=json&keyword=真的爱你&page=1
+
 2.http://songsearch.kugou.com/song_search_v2?keyword={关键字}&platform=WebFilter&format=json&page={页数}&pagesize={页大小(几条歌曲)}
 
-目前状态:可用
 延迟:27Ms
 请求链接示例:
 .http://songsearch.kugou.com/song_search_v2?keyword=光辉岁月&platform=WebFilter&format=json&page=1&pagesize=10
@@ -145,3 +144,19 @@ http://mobilecdn.kugou.com/api/v3/album/song?version=9108&albumid=11790366&plat=
 
 目前状态:可用
 延迟:未知
+
+
+
+歌词的API：
+
+1.搜索歌词
+
+GET http://krcs.kugou.com/search?ver=1&man=yes&client=mobi&keyword=&duration=&hash=F3EA661A19E9A0C965AD64049040BBAC&album_audio_id=
+
+hash必须 其他参数可选 网页端播放音乐的url就有hash
+
+2.获取歌词
+
+GET http://lyrics.kugou.com/download?ver=1&client=pc&id=【上一步得到的id】&accesskey=【上一步得到的accesskey】&fmt=krc&charset=utf8
+
+//需要base64解码，使用js内置函数atob(base64Str)

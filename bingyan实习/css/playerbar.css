@@ -156,12 +156,63 @@
     background-color: #FFC107;
 }
 
-.playerbar_middle_down {
+.playerbar_middle_down_father {
     display: flex;
+    position: relative;
     margin-top: 55px;
     height: 35px;
     width: 100%;
-    background-color: aqua;
+}
+
+.playerbar_middle_down {
+    display: flex;
+    position: absolute;
+    height: 35px;
+    width: 100%;
+    /* background-color: aqua; */
+    line-height: 35px;
+    color: black;
+    font-size: 16px;
+    font-weight: 700;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.playerbar_middle_down_control {
+    display: flex;
+    position: absolute;
+    height: 35px;
+    width: 100%;
+    /* background-color: aqua; */
+    line-height: 35px;
+    color: black;
+    font-size: 16px;
+    font-weight: 700;
+    /* background-color: #2196F3; */
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.playerbar_middle_down_control_progress {
+    height: 35px;
+    width: 50%;
+    background-color: #2196F3;
+}
+
+.playerbar_middle_down_control_volume {
+    height: 35px;
+    width: 50%;
+    /* background-color: #f44336; */
+}
+
+
+.playerbar_middle_down_father:hover .playerbar_middle_down {
+    opacity: 0;
+}
+
+.playerbar_middle_down_father:hover .playerbar_middle_down_control {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 
@@ -270,4 +321,54 @@
 
 .add_music_to_mylist_list:hover {
     background-color: rgba(227, 227, 229);
+}
+
+/* 音量 */
+.volume-control {
+    margin-left: 10px;
+    width: 85%;
+}
+
+.slider-container {
+    position: relative;
+    height: 40px;
+}
+
+.track {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #ddd;
+    transform: translateY(-50%);
+    border-radius: 2px;
+}
+
+.fill {
+    position: absolute;
+    height: 100%;
+    background: #000;
+    width: 50%;
+    /* 初始音量 */
+    border-radius: 2px;
+}
+
+.thumb {
+    position: absolute;
+    left: 50%;
+    /* 初始位置与fill宽度一致 */
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s;
+}
+
+.thumb:active {
+    transform: translate(-50%, -50%) scale(1.2);
+    cursor: grabbing;
 }

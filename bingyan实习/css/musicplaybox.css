@@ -1,4 +1,5 @@
 .musicplaybox {
+    display: flex;
     position: fixed;
     left: 1%;
     width: 97%;
@@ -89,4 +90,59 @@
     font-size: 16px;
     line-height: 20px;
     color: rgba(107, 107, 107);
+}
+
+.musicplaybox_right {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    /* background-color: pink; */
+}
+
+/* 整体容器 */
+.lyric_container {
+    width: 400px;
+    height: 90%;
+    overflow-y: scroll;
+    /* 启用垂直滚动 */
+    overflow-x: hidden;
+    margin: 20px auto;
+    /* border: 1px solid #ccc; */
+    padding: 10px;
+    font-weight: 700;
+    color: rgba(170, 170, 170);
+    position: relative;
+    /* background-color: aqua; */
+}
+
+.lyric_container::-webkit-scrollbar {
+    display: none;
+}
+
+/* 歌词行 */
+.lyric_line {
+    /* height: 60px; */
+    padding: 20px 0;
+    font-size: 18px;
+    line-height: 1.5;
+    transition: all 0.5s ease-in-out;
+    text-align: left;
+}
+
+.lyric_line:hover {
+    color: rgba(90, 90, 90);
+    cursor: default;
+}
+
+/* 当前播放的歌词 */
+.lyric_now {
+    font-size: 24px;
+    color: black;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+.lyric_now:hover {
+    color: black;
+    cursor: default;
 }

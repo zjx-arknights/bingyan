@@ -31,6 +31,18 @@
 // 创建 XMLHttpRequest 对象
 // 创建 XMLHttpRequest 对象
 
+//渲染
+const contentElement = document.querySelector('.content')
+const playerbar_middle_up_middle = document.querySelector('.playerbar_middle_up_middle')
+const audio = document.getElementById('audio')
+const hot = document.getElementById('hot')
+const musicplaybox_left_image = document.querySelector('.musicplaybox_left_image')
+const musicplaybox_left_information_name = document.querySelector('.musicplaybox_left_information_name')
+const musicplaybox_left_information_introduction = document.querySelector('.musicplaybox_left_information_introduction')
+const music_name = document.querySelector('.music_name')
+const music_synopsis = document.querySelector('.music_synopsis')
+const lyric_container = document.querySelector('.lyric_container')
+
 const testcontent = [{
     "id": "0",
     "name": "测试1",
@@ -49,6 +61,13 @@ const testcontent = [{
 },]
 const hotcontent = []
 //返回原始数据
+let lyricData = ``//原始歌词
+let lyrics = []//切割好的歌词
+let currentLyricIndex = 0;
+let apiResponse
+//歌词部分
+
+
 async function callApi(apiUrl) {
 
     if (!apiUrl) {
@@ -81,9 +100,10 @@ async function callApi(apiUrl) {
 
 }
 
-let apiResponse
 
-// 遍历热门歌曲播放列表
+
+
+// 遍历热门歌曲播放列表，挑选出免费歌曲
 function searchfree(apiResponse) {
     const freeSongHashes = [];
     apiResponse?.data?.data?.list?.forEach((playlist) => {
@@ -92,10 +112,10 @@ function searchfree(apiResponse) {
             // 判断是否为免费歌曲（根据你的字段逻辑调整）
             const isFree =
                 (song.pay_type === 0 || song.pay_type === undefined) && // 主付费类型
-                (song.price === 0 || song.price === undefined) &&        // 价格
-                (song.pay_type_sq === 0 || song.pay_type_sq === undefined) && // SQ音质付费
-                (song.pay_type_320 === 0 || song.pay_type_320 === undefined); // 320音质付费
-
+                (song.price === 0 || song.price === undefined)         // 价格
+            // (song.pay_type_sq === 0 || song.pay_type_sq === undefined) && // SQ音质付费
+            // (song.pay_type_320 === 0 || song.pay_type_320 === undefined); // 320音质付费
+            //暂时只做普通音质，后面有时间可以增加切换音质功能
             // 如果是免费歌曲且存在 hash
             if (isFree && song.hash) {
                 freeSongHashes.push(song.hash);
@@ -105,17 +125,27 @@ function searchfree(apiResponse) {
 
     return freeSongHashes
 }
+// 遍历搜索歌曲播放列表,挑选出免费歌曲
+function searchfree_search(apiResponse) {
+    let freeSongHashes_search = [];
+    apiResponse?.data?.data?.info?.forEach((song) => {
+        // 遍历每首歌曲
+        // 判断是否为免费歌曲
+        const isFree =
+            (song.pkg_price_sq === 0 || song.pkg_price_sq === undefined) // 主付费类型
+        // (song.price === 0 || song.price === undefined)
+        // 价格
+        // (song.pay_type_sq === 0 || song.pay_type_sq === undefined) && // SQ音质付费
+        // (song.pay_type_320 === 0 || song.pay_type_320 === undefined); // 320音质付费
+        //暂时只做普通音质，后面有时间可以增加切换音质功能
+        // 如果是免费歌曲且存在 hash
+        if (isFree && song.hash) {
+            freeSongHashes_search.push(song.hash);
+        }
+    });
+    return freeSongHashes_search
+}
 
-//渲染
-const contentElement = document.querySelector('.content')
-const playerbar_middle_up_middle = document.querySelector('.playerbar_middle_up_middle')
-const audio = document.getElementById('audio')
-const hot = document.getElementById('hot')
-const musicplaybox_left_image = document.querySelector('.musicplaybox_left_image')
-const musicplaybox_left_information_name = document.querySelector('.musicplaybox_left_information_name')
-const musicplaybox_left_information_introduction = document.querySelector('.musicplaybox_left_information_introduction')
-const music_name = document.querySelector('.music_name')
-const music_synopsis = document.querySelector('.music_synopsis')
 
 
 
@@ -160,6 +190,7 @@ function createcontent_hot(result) {
     musicImage.dataset.id = `${hotcontent.length - 1}`
 
     //利用id识别播放对应曲目和渲染画面
+    //同时利用储存的hash值查询歌词
     musicImage.addEventListener('click', (e) => {
         console.log(hotcontent[e.currentTarget.dataset.id].url)
         audio.src = hotcontent[e.currentTarget.dataset.id].url
@@ -172,6 +203,9 @@ function createcontent_hot(result) {
         musicplaybox_left_information_introduction.innerHTML = `歌手：${hotcontent[e.currentTarget.dataset.id].author_name}`
         music_name.innerHTML = `${hotcontent[e.currentTarget.dataset.id].name}`
         music_synopsis.innerHTML = `歌手：${hotcontent[e.currentTarget.dataset.id].author_name}`
+        //寻找歌词
+        searchlyric(hotcontent[e.currentTarget.dataset.id].hash)
+
     })
 
 }
@@ -205,6 +239,21 @@ function rend(api) {
             console.error("捕获错误:", error);
         });
 }
+
+function rend_search(api) {
+    callApi(api)
+        .then(result => {
+            apiResponse = JSON.parse(result)
+            let searchfree_search_hash = searchfree_search(apiResponse)
+            console.log(searchfree_search_hash)
+        })
+        .catch(error => {
+            console.error("捕获错误:", error);
+        });
+}
+
+// rend_search('http://mobilecdn.kugou.com/api/v3/search/song?format=json&keyword=天下&page=10')
+
 hot.addEventListener('click', () => {
     rend('http://mobilecdnbj.kugou.com/api/v5/special/recommend?recommend_expire=0&sign=52186982747e1404d426fa3f2a1e8ee4&plat=0&uid=0&version=9108&page=1&area_code=1&appid=1005&mid=286974383886022203545511837994020015101&_t=1545746286');
 });
@@ -251,6 +300,7 @@ function createcontent_test(testcontent) {
             musicplaybox_left_information_introduction.innerHTML = `歌手：${testcontent[test.id].author_name}`
             music_name.innerHTML = `${testcontent[test.id].name}`
             music_synopsis.innerHTML = `歌手：${testcontent[test.id].author_name}`
+            currentLyricIndex = 0
         })
     })
 
@@ -261,5 +311,87 @@ const test_with_lrc = document.getElementById("test_with_lrc")
 test_with_lrc.addEventListener('click', () => {
     contentElement.innerHTML = ``
     createcontent_test(testcontent)
-
 })
+
+
+//base64解码并截取歌词部分
+function decodeBase64(base64Str) {
+    // 解码 Base64 字符串为二进制字符串
+    const binaryStr = atob(base64Str);
+
+    // 将二进制字符串转为字节数组（处理非 ASCII 字符）
+    const bytes = new Uint8Array(binaryStr.length);
+    for (let i = 0; i < binaryStr.length; i++) {
+        bytes[i] = binaryStr.charCodeAt(i);
+    }
+    // 将字节数组解码为 UTF-8 字符串
+    const lyric_raw = new TextDecoder().decode(bytes)
+    //截取正式歌词部分
+    return lyric_raw.split('\n')
+        .filter(line => /^\[\d{2}:\d{2}\.\d{2}\].+/.test(line))
+        .join('\n');
+}
+
+function searchlyric(hash) {
+    const hash_accesskey = `http://krcs.kugou.com/search?ver=1&man=yes&client=mobi&keyword=&duration=&hash=${hash}&album_audio_id=`
+    callApi(hash_accesskey)
+        .then(result_raw => {
+            result = JSON.parse(result_raw)
+            const accesskey = result?.data?.candidates[0].accesskey
+            const id = result?.data?.candidates[0].id
+            const api_lyric = `http://lyrics.kugou.com/download?ver=1&client=pc&id=${id}&accesskey=${accesskey}&fmt=lrc&charset=utf8`
+            callApi(api_lyric)
+                .then(result => {
+                    base64Str_raw = JSON.parse(result)
+                    const base64Str = base64Str_raw.data.content
+                    lyricData = decodeBase64(base64Str)
+                    lyrics = parseLyric(lyricData)
+                    // 初始化歌词并开始播放
+                    loadLyrics(lyrics);
+                    currentLyricIndex = 0
+                })
+                .catch(error => {
+                    console.error("捕获错误:", error);
+                });
+
+        })
+        .catch(error => {
+            console.error("捕获错误:", error);
+        });
+}
+
+
+
+//渲染歌词部分
+// 解析歌词
+function parseLyric(text) {
+    const lines = text.split('\n');
+    const pattern = /\[(\d+):(\d+\.\d+)\](.+)/;
+    const lyric = [];
+
+    lines.forEach(line => {
+        if (line.match(pattern)) {
+            const [, min, sec, text] = line.match(pattern);
+            const time = parseFloat(min) * 60 + parseFloat(sec);
+            lyric.push({ time, text: text.trim() });
+        }
+    });
+
+    return lyric;
+}
+
+
+const container = document.querySelector('.lyric_container');
+
+
+// 将歌词添加到容器
+function loadLyrics(lyrics_load) {
+    //先清空之前的歌词
+    lyric_container.innerHTML = ``
+    lyrics_load.forEach(lyric => {
+        const lyricline = document.createElement('div');
+        lyricline.classList.add('lyric_line');
+        lyricline.innerHTML = lyric.text;
+        container.appendChild(lyricline);
+    });
+}

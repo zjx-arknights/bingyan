@@ -135,11 +135,26 @@
                 </div>
                 <div class="playerbar_middle_up_right"></div>
             </div>
-            <div class="playerbar_middle_down">
-                <audio controls hidden id="audio">
-
-                </audio>
+            <div class="playerbar_middle_down_father">
+                <div class="playerbar_middle_down">
+                    0:00/4:30
+                </div>
+                <div class="playerbar_middle_down_control">
+                    <div class="playerbar_middle_down_control_progress">1111</div>
+                    <div class="playerbar_middle_down_control_volume">
+                        <div class="volume-control">
+                            <div class="slider-container" id="sliderContainer">
+                                <div class="track">
+                                    <div class="fill" id="fill"></div>
+                                </div>
+                                <div class="thumb" id="thumb"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <audio controls hidden id="audio">
+            </audio>
         </div>
         <div class="playerbar_right">
             <div class="control">
@@ -186,6 +201,11 @@
             </div>
 
         </div>
+        <div class="musicplaybox_right">
+            <div class="lyric_container">
+                <!-- 歌词内容动态插入 -->
+            </div>
+        </div>
     </div>
 </body>
 <script src="js/globalData.js"></script>
@@ -195,5 +215,6 @@
 <script src="js/playerbar.js"></script>
 <script src="js/musiclist_all.js"></script>
 <script src="js/audio.js"></script>
+<script src="js/lrc.js"></script>
 
 </html>
