@@ -1,0 +1,149 @@
+.search_show {
+    position: fixed;
+    right: 0;
+    left: 240px;
+    height: 600px;
+    background-color: white;
+    top: 100px;
+    display: none;
+    /* background-color: pink; */
+    transition: left 0.3s;
+}
+
+.search_show_active {
+    left: 100px;
+}
+
+.search_show_show {
+    display: block;
+}
+
+.search_show_head {
+    display: flex;
+    width: 100%;
+    height: 60px;
+    /* background-color: aqua; */
+    align-items: center;
+}
+
+.search_show_head_left {
+    height: 100%;
+    line-height: 60px;
+    font-size: 26px;
+    color: rgba(107, 107, 107);
+    font-weight: 700;
+}
+
+.search_show_head_right {
+    height: 100%;
+    /* background-color: red; */
+    line-height: 60px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.search_show_content {
+    height: 500px;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.search_show_content_list {
+    display: flex;
+    position: relative;
+    align-items: center;
+    height: 70px;
+    margin-left: 5px;
+    margin-right: 20px;
+    border-radius: 12px;
+}
+
+.search_show_content_list:hover {
+    background-color: rgba(242, 242, 247);
+}
+
+.search_show_content::-webkit-scrollbar {
+    display: none;
+}
+
+/* 图片 */
+.search_show_content_list_image {
+    position: relative;
+    width: 70px;
+    height: 100%;
+    /* background-color: bisque; */
+}
+
+.search_show_content_list_imagebox {
+    position: absolute;
+    /* background-color: pink; */
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    background-image: url(../image/塞壬唱片_wingedstep.png);
+    background-size: cover;
+    border-radius: 8px;
+}
+
+.search_show_content_list_introduction {
+    margin-left: 15px;
+    width: 200px;
+    height: 70px;
+    /* background-color: red; */
+}
+
+.search_show_content_list_introduction_name {
+    margin-top: 5px;
+    height: 30px;
+    width: 200px;
+    line-height: 40px;
+    overflow: hidden;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.search_show_content_list_introduction_singer {
+    height: 30px;
+    width: 200px;
+    font-size: 13px;
+    color: rgba(78, 78, 79);
+    overflow: hidden;
+}
+
+.search_show_content_list_album {
+    margin-left: 15%;
+    width: 200px;
+    height: 100%;
+    line-height: 70px;
+    color: rgba(31, 31, 31);
+    font-size: 18px;
+    /* background-color: blue; */
+    overflow: hidden;
+}
+
+.search_show_content_list_add {
+    display: flex;
+    position: absolute;
+    right: 0;
+    width: 150px;
+    height: 100%;
+}
+
+.search_show_content_list_addtomylist {
+    margin: 25px;
+    height: 20px;
+    width: 20px;
+    /* background-color: blueviolet;
+    background-image: url("../svg/search_show_content_list_addtomylist.svg"); */
+    background-size: cover;
+}
+
+.search_show_content_list_addtonowplay {
+    margin: 25px;
+    height: 20px;
+    width: 20px;
+    /* background-color: blueviolet; */
+    /* background-image: url(../svg/search_show_content_list_addtonowplay.svg); */
+    background-size: cover;
+}

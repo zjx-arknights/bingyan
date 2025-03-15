@@ -24,12 +24,12 @@
     /* 左侧间距 */
     bottom: 120px;
     /* 距离底部菜单栏20px */
-    width: calc(30% - 40px);
+    width: calc(43% - 40px);
     /* 屏幕一半减去左右边距 */
     max-width: 600px;
     /* 最大宽度限制 */
-    height: 50vh;
-    background: white;
+    height: 77vh;
+    background: rgba(238, 238, 238);
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     transform: translateY(150%);
@@ -38,6 +38,7 @@
     z-index: 1003;
     padding: 20px;
     box-sizing: border-box;
+    opacity: 0.96;
 }
 
 .popup-panel.active {
@@ -54,7 +55,90 @@
     }
 }
 
+.music_list_all_head {
+    display: flex;
+    position: relative;
+    height: 60px;
+    width: 100%;
+    /* background-color: pink; */
+    align-items: center;
+}
+
+.music_list_all_head_left {
+    position: absolute;
+    left: 5%;
+    right: 100px;
+    height: 60px;
+    /* width: 75%; */
+    /* background-color: red; */
+    line-height: 60px;
+    font-size: 24px;
+}
+
+.music_list_all_head_right {
+    position: absolute;
+    margin: 10px;
+    right: 40px;
+    height: 40px;
+    width: 40px;
+    /* background-color: aqua; */
+    background-image: url(../svg/music_list_all_head_right.svg);
+    background-size: cover;
+}
+
+
+
+
+
 .panel-content {
     height: calc(100% - 40px);
     overflow-y: auto;
+}
+
+.panel_content_list {
+    position: relative;
+    display: flex;
+    height: 60px;
+    width: 100%;
+    /* background-color: pink; */
+    align-items: center;
+}
+
+.panel_content_list_name {
+    position: absolute;
+    height: 60px;
+    width: 40%;
+    margin-left: 10%;
+    font-size: 16px;
+    /* background-color: aqua; */
+    line-height: 60px;
+}
+
+.panel_content_list_singer {
+    left: 50%;
+    position: absolute;
+    height: 60px;
+    width: 40%;
+    font-size: 15px;
+    /* background-color: aquamarine; */
+    line-height: 60px;
+}
+
+.panel_content_list_delete {
+    position: absolute;
+    right: 20px;
+    height: 25px;
+    width: 25px;
+    /* background-color: bisque; */
+    background-image: url(../svg/music_list_all_head_right.svg);
+    background-size: cover;
+}
+
+.panel_content_list:hover {
+    background-color: rgba(242, 242, 242);
+    color: rgba(1, 122, 254);
+}
+
+.panel_content_list_delete:hover {
+    cursor: pointer;
 }

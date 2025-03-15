@@ -135,6 +135,11 @@
     color: whitesmoke;
 }
 
+#hotmusic:hover {
+    background-color: rgba(1, 122, 254);
+    color: whitesmoke;
+}
+
 
 /* 右侧内容区域 */
 .content {

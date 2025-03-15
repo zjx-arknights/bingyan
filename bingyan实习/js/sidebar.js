@@ -7,6 +7,7 @@ const search_bar = document.querySelector('.search-bar')
 const exchange_ = document.querySelector('.exchange')
 const music_types = document.querySelector('.music_types')
 const content = document.querySelector('.content')
+const search_show = document.querySelector('.search_show')
 sidebar_shrink.addEventListener('click', () => {
     // sidebar.classList.toggle('sidebar_active')
     list.forEach(item => {
@@ -18,6 +19,7 @@ sidebar_shrink.addEventListener('click', () => {
     exchange_.classList.toggle('exchange_active')
     music_types.classList.toggle('music_types_active')
     content.classList.toggle('content_active')
+    search_show.classList.toggle('search_show_active')
 })
 
 // 获取菜单项和面板

@@ -58,16 +58,75 @@ function updatatime() {
     })
 }
 
-
 // 根据当前时间更新歌词
-function updateLyrics(currentTime) {
-    // 查找当前播放的歌词
-    let lyric
-    if (lyrics[currentLyricIndex]) {
-        lyric = lyrics[currentLyricIndex]
+/**
+ * 平滑滚动到指定位置
+ * @param {HTMLElement} element - 需要滚动的容器
+ * @param {number} targetScrollTop - 目标滚动位置
+ * @param {number} duration - 滚动时间（固定时间，单位：毫秒）
+ */
+function smoothScrollTo(element, targetScrollTop, duration = 150) {
+    const startScrollTop = element.scrollTop; // 当前滚动位置
+    const distance = targetScrollTop - startScrollTop; // 滚动距离
+    let startTime = null;
 
+    function scrollAnimation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1); // 滚动进度（0 到 1）
+
+        // 根据进度更新滚动位置
+        element.scrollTop = startScrollTop + distance * progress;
+
+        // 如果未完成滚动，继续动画
+        if (progress < 1) {
+            requestAnimationFrame(scrollAnimation);
+        }
+    }
+
+    // 启动滚动动画
+    requestAnimationFrame(scrollAnimation);
+}
+
+/**
+ * 平滑滚动到指定位置
+ * @param {HTMLElement} element - 需要滚动的容器
+ * @param {number} targetScrollTop - 目标滚动位置
+ * @param {number} duration - 滚动时间（固定时间，单位：毫秒）
+ */
+function smoothScrollTo(element, targetScrollTop, duration = 150) {
+    const startScrollTop = element.scrollTop; // 当前滚动位置
+    const distance = targetScrollTop - startScrollTop; // 滚动距离
+    let startTime = null;
+
+    function scrollAnimation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1); // 滚动进度（0 到 1）
+
+        // 根据进度更新滚动位置
+        element.scrollTop = startScrollTop + distance * progress;
+
+        // 如果未完成滚动，继续动画
+        if (progress < 1) {
+            requestAnimationFrame(scrollAnimation);
+        }
+    }
+
+    // 启动滚动动画
+    requestAnimationFrame(scrollAnimation);
+}
+
+/**
+ * 根据当前时间更新歌词
+ * @param {number} currentTime - 当前播放时间
+ */
+function updateLyrics(currentTime) {
+    if (lyrics[currentLyricIndex]) {
+        const lyric = lyrics[currentLyricIndex];
+
+        // 判断是否需要前进到下一句歌词
         if (currentTime >= lyric.time) {
-            // 将当前歌词加大并居中显示
             const lines = container.getElementsByClassName('lyric_line');
             for (let i = 0; i < lines.length; i++) {
                 lines[i].classList.remove('lyric_now');
@@ -75,18 +134,35 @@ function updateLyrics(currentTime) {
             const currentLine = lines[currentLyricIndex];
             currentLine.classList.add('lyric_now');
 
-            // 使用 scrollIntoView 实现平滑滚动
-            currentLine.scrollIntoView({
-                behavior: 'smooth', // 启用平滑滚动
-                block: 'center'     // 居中对齐
-            });
+            // 计算目标滚动位置
+            const targetScrollTop = currentLine.offsetTop - container.clientHeight / 2;
+
+            // 平滑滚动到目标位置
+            smoothScrollTo(container, targetScrollTop);
 
             // 下一句歌词
             currentLyricIndex++;
+        }
+        // 判断是否需要回退到上一句歌词
+        else if (currentLyricIndex > 0 && currentTime < lyrics[currentLyricIndex - 1].time) {
+            currentLyricIndex--;
 
+            const lines = container.getElementsByClassName('lyric_line');
+            for (let i = 0; i < lines.length; i++) {
+                lines[i].classList.remove('lyric_now');
+            }
+            const currentLine = lines[currentLyricIndex];
+            currentLine.classList.add('lyric_now');
+
+            // 计算目标滚动位置
+            const targetScrollTop = currentLine.offsetTop - container.clientHeight / 2;
+
+            // 平滑滚动到目标位置
+            // console.log(container)
+            // console.log(targetScrollTop)
+            smoothScrollTo(container, targetScrollTop);
         }
     }
-    console.log(currentLyricIndex)
 }
 
 
@@ -147,3 +223,55 @@ sliderContainer.addEventListener('click', (e) => {
 
 // 初始化音量
 updateVolume(0.5);
+
+//进度条
+const progressContainer = document.getElementById('progressContainer');
+const currentProgress = document.getElementById('currentProgress');
+const progressHandle = document.getElementById('progressHandle');
+
+let isDragging_ = false;
+
+// 播放时间更新
+audio.addEventListener('timeupdate', () => {
+    if (!isDragging_) {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        currentProgress.style.width = `${progress}%`;
+        progressHandle.style.left = `${progress}%`;
+    }
+});
+
+// 点击进度条跳转
+progressContainer.addEventListener('click', (e) => {
+    if (!isDragging_) {
+        const rect = progressContainer.getBoundingClientRect();
+        const pos = (e.clientX - rect.left) / rect.width;
+        audio.currentTime = pos * audio.duration;
+    }
+});
+
+// 拖动处理
+progressHandle.addEventListener('mousedown', startDrag);
+document.addEventListener('mousemove', handleDrag);
+document.addEventListener('mouseup', endDrag);
+
+function startDrag() {
+    isDragging_ = true;
+}
+
+function handleDrag(e) {
+    if (isDragging_) {
+        const rect = progressContainer.getBoundingClientRect();
+        let pos = (e.clientX - rect.left) / rect.width;
+        pos = Math.max(0, Math.min(1, pos));
+
+        currentProgress.style.width = `${pos * 100}%`;
+        progressHandle.style.left = `${pos * 100}%`;
+    }
+}
+
+function endDrag() {
+    if (isDragging_) {
+        isDragging_ = false;
+        audio.currentTime = (parseFloat(currentProgress.style.width) / 100) * audio.duration;
+    }
+}

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/playerbar.css">
     <link rel="stylesheet" href="css/musiclist_all.css">
     <link rel="stylesheet" href="css/musicplaybox.css">
+    <link rel="stylesheet" href="css/search_show.css">
 </head>
 
 <body>
@@ -28,11 +29,14 @@
                 <div class="list sidebar_up_bottom">收藏的歌单</div> -->
             </div>
             <div class="sidebar_in">
+                <div class="list" id="hotmusic" onclick="turn_to_hot()">热门歌曲（免费版）</div>
                 <div class="list sidebar_create menu-item" id="createPlaylist">
                     <div class="sidebar_create_image"></div>
                     <div class="text">创建的歌单</div>
                 </div>
+
                 <div class="list sidebar_up_bottom menu-item" id="favoritePlaylist">收藏的歌单</div>
+
                 <div class="sidebar_content">
                     <div class="panel" id="createPanel">
                         <div class="list">111111</div>
@@ -52,13 +56,13 @@
         <div class="search-bar">
             <div class="to_left"><img src="image/left.png"></div>
             <div class="to_right"><img src="image/righ.png"></div>
-
+            <button type="button" onclick="search_and_rend()">获取内容</button>
             <div class="setting" onclick="setting()"><img src="image/setting.png"></div>
             <div class="download">
                 <img src="image/Snipaste_2025-03-10_16-59-30.png">
             </div>
             <div class="input_">
-                <input type="text" placeholder="搜索歌曲...">
+                <input type="text" id="inputField" placeholder="搜索歌曲...">
             </div>
         </div>
         <div class="setting_down">
@@ -119,7 +123,7 @@
     <div class="playerbar">
         <div class="playerbar_left">
             <div class="music_list_all">
-                <div class="music_list_all_image">11111111</div>
+                <div class="music_list_all_image"></div>
             </div>
             <div class="splice"></div>
             <div class="music_information">
@@ -140,7 +144,13 @@
                     0:00/4:30
                 </div>
                 <div class="playerbar_middle_down_control">
-                    <div class="playerbar_middle_down_control_progress">1111</div>
+                    <div class="playerbar_middle_down_control_progress">
+                        <div class="progress-container" id="progressContainer">
+                            <div class="progress-bar"></div>
+                            <div class="current-progress" id="currentProgress"></div>
+                            <div class="progress-handle" id="progressHandle"></div>
+                        </div>
+                    </div>
                     <div class="playerbar_middle_down_control_volume">
                         <div class="volume-control">
                             <div class="slider-container" id="sliderContainer">
@@ -159,24 +169,31 @@
         <div class="playerbar_right">
             <div class="control">
                 <div class="playerbar_right_addmusic">
-                    <div class="playerbar_right_addmusic_image">111</div>
+                    <div class="playerbar_right_addmusic_image"></div>
                 </div>
                 <div class="cycleway">
-                    <div class="cycleway_image">222</div>
+                    <div class="cycleway_image"></div>
                 </div>
             </div>
             <div class="musicscreen">
-                <div class="musicscreen_image">333</div>
+                <div class="musicscreen_image"></div>
             </div>
         </div>
     </div>
     <div class="mask"></div>
     <!-- 弹出面板 -->
     <div class="popup-panel">
-        <div class="music_list_all_head">111</div>
+        <div class="music_list_all_head">
+            <div class="music_list_all_head_left">共109首</div>
+            <div class="music_list_all_head_right"></div>
+        </div>
 
         <div class="panel-content">
-            <div style="height: 800px">可滚动内容区域...</div>
+            <!-- <div class="panel_content_list">
+                <div class="panel_content_list_name">天下</div>
+                <div class="panel_content_list_singer">张杰</div>
+                <div class="panel_content_list_delete"></div>
+            </div> -->
         </div>
 
     </div>
@@ -206,6 +223,18 @@
                 <!-- 歌词内容动态插入 -->
             </div>
         </div>
+    </div>
+
+    <div class="search_show">
+        <div class="search_show_head">
+            <div class="search_show_head_left">搜索歌曲：</div>
+            <div class="search_show_head_right">“天下”</div>
+        </div>
+        <div class="search_show_content">
+            <!-- 搜索结果渲染内容 -->
+            <!-- <div class="search_show_content_list" data-id="0"><div class="search_show_content_list_image"><div class="search_show_content_list_imagebox" style="background-image: url(&quot;http://singerimg.kugou.com/uploadpic/softhead/1000/20230427/20230427111301625160.jpg&quot;);"></div></div><div class="search_show_content_list_introduction"><div class="search_show_content_list_introduction_name">成都</div><div class="search_show_content_list_introduction_singer">田阿依</div></div><div class="search_show_content_list_album">专辑</div><div class="search_show_content_list_add"><img class="search_show_content_list_addtomylist" title="添加到当前播放" src="svg/search_show_content_list_addtomylist.svg"><img class="search_show_content_list_addtonowplay" title="添加到我的歌单" src="svg/search_show_content_list_addtonowplay.svg"></div></div> -->
+        </div>
+
     </div>
 </body>
 <script src="js/globalData.js"></script>

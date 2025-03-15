@@ -35,7 +35,7 @@
 }
 
 .playerbar_right {
-    background-color: #FFC107;
+    /* background-color: #FFC107; */
     flex-shrink: 0;
     /* 右侧盒子的宽度固定 */
     height: 100%;
@@ -54,9 +54,11 @@
 }
 
 .music_list_all_image {
-    width: 40px;
-    height: 40px;
-    background-color: blueviolet;
+    width: 20px;
+    height: 20px;
+    /* background-color: blueviolet; */
+    background-image: url(../svg/music_list_all_image.svg);
+    background-size: cover;
     cursor: pointer;
 }
 
@@ -196,7 +198,7 @@
 .playerbar_middle_down_control_progress {
     height: 35px;
     width: 50%;
-    background-color: #2196F3;
+    /* background-color: #2196F3; */
 }
 
 .playerbar_middle_down_control_volume {
@@ -237,7 +239,7 @@
     height: 100%;
     width: 150px;
     margin-left: 150px;
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
 }
 
 .playerbar_right_addmusic,
@@ -247,7 +249,7 @@
     align-items: center;
     height: 100%;
     width: 75px;
-    border-right: 1px solid black;
+    /* border-right: 1px solid black; */
 }
 
 .musicscreen {
@@ -256,28 +258,37 @@
     align-items: center;
     height: 100%;
     width: 80px;
-    background-color: #2196F3;
+    /* background-color: #2196F3; */
 }
 
 .cycleway_image {
     height: 40px;
     width: 40px;
-    background-color: #f44336;
+    margin-left: 20px;
+    margin-top: 20px;
+    /* background-color: #f44336; */
+    background-image: url(../svg/cycleway_image_soft.svg);
+    background-size: cover;
     cursor: pointer;
 }
 
 .playerbar_right_addmusic_image {
-    height: 40px;
-    width: 40px;
-    background-color: #f44336;
+    height: 20px;
+    width: 20px;
+    /* background-color: #f44336; */
+    background-image: url(../svg/playerbar_right_addmusic_image.svg);
+    background-size: cover;
     cursor: pointer;
 }
 
 .musicscreen_image {
-    height: 40px;
-    width: 40px;
-    background-color: #f44336;
+    height: 20px;
+    width: 20px;
+    /* background-color: #f44336; */
+    background-image: url(../svg/musicscreen_image_up.svg);
+    background-size: cover;
     cursor: pointer;
+    transition: transform 0.5s ease;
 }
 
 /* 添加到我的歌单 */
@@ -289,6 +300,8 @@
     left: calc(50vw - 200px);
     background-color: white;
     z-index: 1003;
+    border: 1px solid black;
+    border-radius: 12px;
     display: none;
 }
 
@@ -371,4 +384,57 @@
 .thumb:active {
     transform: translate(-50%, -50%) scale(1.2);
     cursor: grabbing;
+}
+
+/* 进度条 */
+/* 进度条容器 */
+.progress-container {
+    position: relative;
+
+    width: 100px;
+    height: 20px;
+    margin: 20px 0;
+    margin-left: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* 进度条背景 */
+.progress-bar {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: #ddd;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 2px;
+}
+
+/* 当前进度 */
+.current-progress {
+    position: absolute;
+    height: 4px;
+    background: #2196F3;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 2px;
+    transition: width 0.1s linear;
+}
+
+/* 拖动按钮 */
+.progress-handle {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #2196F3;
+    border-radius: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.1s;
+}
+
+.progress-handle:hover {
+    transform: translate(-50%, -50%) scale(1.2);
 }
