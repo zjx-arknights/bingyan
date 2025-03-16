@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/musiclist_all.css">
     <link rel="stylesheet" href="css/musicplaybox.css">
     <link rel="stylesheet" href="css/search_show.css">
+    <link rel="stylesheet" href="css/theme.css">
 </head>
 
 <body>
@@ -39,12 +40,11 @@
 
                 <div class="sidebar_content">
                     <div class="panel" id="createPanel">
-                        <div class="list">111111</div>
-                        <div class="list">111111</div>
+                        <!-- <div class="list createPanel_list">list1</div> -->
                     </div>
                     <div class="panel" id="favoritePanel">
-                        <div class="list">222111</div>
-                        <div class="list">222111</div>
+                        <div class="list">收藏的歌单1</div>
+                        <div class="list">收藏的歌单2</div>
                     </div>
                 </div>
             </div>
@@ -184,7 +184,7 @@
     <!-- 弹出面板 -->
     <div class="popup-panel">
         <div class="music_list_all_head">
-            <div class="music_list_all_head_left">共109首</div>
+            <div class="music_list_all_head_left">共0首</div>
             <div class="music_list_all_head_right"></div>
         </div>
 
@@ -201,9 +201,10 @@
     <div class="add_music_to_mylist">
         <div class="add_music_to_mylist_head">添加到我的歌单</div>
         <div class="add_music_to_mylist_content">
-            <div class="add_music_to_mylist_list" data-id="list1">111</div>
-            <div class="add_music_to_mylist_list" data-id="list1">111</div>
-            <div class="add_music_to_mylist_list" data-id="list1">111</div>
+            <div class="add_music_to_mylist_list" id="new_list">
+                <div class="add_music_to_mylist_list_image"></div>新建歌单
+            </div>
+
 
 
         </div>
@@ -245,5 +246,6 @@
 <script src="js/musiclist_all.js"></script>
 <script src="js/audio.js"></script>
 <script src="js/lrc.js"></script>
+<script src="js/localstorage.js"></script>
 
 </html>

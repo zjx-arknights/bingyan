@@ -14,3 +14,7 @@ ul {
     list-style: none;
     /* 去除圆点 */
 }
+
+body {
+    background-color: var(--body-bgc);
+}

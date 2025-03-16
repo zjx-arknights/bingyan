@@ -29,7 +29,7 @@
     max-width: 600px;
     /* 最大宽度限制 */
     height: 77vh;
-    background: rgba(238, 238, 238);
+    background: var(--popup-panel-bg);
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     transform: translateY(150%);
@@ -102,6 +102,7 @@
     width: 100%;
     /* background-color: pink; */
     align-items: center;
+    border-radius: 12px;
 }
 
 .panel_content_list_name {
@@ -112,6 +113,7 @@
     font-size: 16px;
     /* background-color: aqua; */
     line-height: 60px;
+    overflow: hidden;
 }
 
 .panel_content_list_singer {
@@ -122,6 +124,7 @@
     font-size: 15px;
     /* background-color: aquamarine; */
     line-height: 60px;
+    overflow: hidden;
 }
 
 .panel_content_list_delete {

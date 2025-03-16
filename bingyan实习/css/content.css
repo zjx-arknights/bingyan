@@ -52,6 +52,7 @@
     /* 隐藏溢出内容 */
     text-overflow: ellipsis;
     /* 用省略号代替溢出部分 */
+    color: var(--music_introduction-c);
 }
 
 .music_introduction:hover {

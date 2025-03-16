@@ -8,7 +8,7 @@
     width: calc(100vw - 200px);
     top: 50px;
     height: 100px;
-    background-color: white;
+    background-color: var(--setting_down-bgc);
     transform: translateY(-100%);
     /* 初始隐藏 */
     z-index: 999;

@@ -1,27 +1,32 @@
 const playerbar_middle_up_middle_copy = document.querySelector('.playerbar_middle_up_middle')
 const playerbar_middle_down = document.querySelector('.playerbar_middle_down')
+const playerbar_middle_up_right = document.querySelector('.playerbar_middle_up_right')
+const playerbar_middle_up_left = document.querySelector('.playerbar_middle_up_left')
+
+// playerbar_middle_up_right.style.backgroundImage = `url${document.querySelector('.panel-content').children[audio.dataset.listlocation + 1].dataset.img}`
+// playerbar_middle_up_left.style.backgroundImage = `url${document.querySelector('.panel-content').children[audio.dataset.listlocation + 1].dataset.img}`
+
 
 function checkAudioPlaying() {
     // 判断 audio 元素是否正在播放
     audio.addEventListener('play', () => {
-        console.log('a')
+        // console.log('a')
         playerbar_middle_up_middle_copy.innerHTML = ``
         const box = document.createElement('div')
         box.classList.add('playerbar_middle_up_middle_startmask')
         playerbar_middle_up_middle_copy.appendChild(box)
+
+
     });
 
     audio.addEventListener('pause', () => {
-        console.log('b')
+        // console.log('b')
         playerbar_middle_up_middle_copy.innerHTML = ``
         const box = document.createElement('div')
         box.classList.add('playerbar_middle_up_middle_stopmask')
         playerbar_middle_up_middle_copy.appendChild(box)
     });
 
-    audio.addEventListener('ended', () => {
-
-    });
 }
 
 function stopAndplay() {
@@ -275,3 +280,151 @@ function endDrag() {
         audio.currentTime = (parseFloat(currentProgress.style.width) / 100) * audio.duration;
     }
 }
+
+
+const cycleway_image = document.querySelector('.cycleway_image')
+cycleway_image.dataset.playway = 'soft'
+//三种播放模式
+//模式切换
+cycleway_image.addEventListener('click', () => {
+    if (cycleway_image.dataset.playway === 'soft') {
+        cycleway_image.dataset.playway = 'one'
+        cycleway_image.style.backgroundImage = `url(svg/cycleway_image_one.svg)`
+    }
+    else if (cycleway_image.dataset.playway === 'one') {
+        cycleway_image.dataset.playway = 'chaos'
+        cycleway_image.style.backgroundImage = `url(svg/cycleway_image_chaos.svg)`
+    }
+    else {
+        cycleway_image.dataset.playway = 'soft'
+        cycleway_image.style.backgroundImage = `url(svg/cycleway_image_soft.svg)`
+    }
+
+
+})
+
+function playway() {
+    // 监听音频播放完毕事件
+
+    audio.addEventListener('ended', function () {
+        audio.dataset.listlocation = hadplaylist.findIndex((music) => music.hash === audio.dataset.hash)
+        // console.log(audio.dataset.listlocation)
+
+        if (cycleway_image.dataset.playway == 'soft') {
+            console.log('1234')
+            if (audio.dataset.listlocation == hadplaylist.length - 1) {
+                audio.dataset.listlocation = 0
+            }
+            else {
+                audio.dataset.listlocation++
+            }
+            playnextmusic(audio.dataset.listlocation)
+            // console.log(audio.dataset.listlocation)
+            //更新图片
+
+
+
+
+        }
+        else if (cycleway_image.dataset.playway == 'one') {
+            playnextmusic(audio.dataset.listlocation)
+        }
+        else {
+            let random_location = Math.floor(Math.random() * (hadplaylist.length))
+            audio.dataset.listlocation = random_location
+            playnextmusic(audio.dataset.listlocation)
+        }
+    });
+
+
+}
+playway()
+
+function playnextmusic(musiclocation) {
+    // console.log(musiclocation)
+    const parent = document.querySelector('.panel-content');
+    const child = parent.children[musiclocation];
+    const next_hash = child.id
+    const next_url = child.dataset.url
+    const next_img = child.dataset.img
+    const next_name = child.dataset.name
+    const next_singername = child.dataset.singername
+
+
+
+    //渲染
+    playerbar_middle_up_middle.style.backgroundImage = `url(${next_img})`
+
+    audio.src = next_url
+    musicplaybox_left_image.style.backgroundImage = `url(${next_img})`
+    musicplaybox.style.setProperty(
+        '--dynamic-bg',
+        `url(${next_img})`
+    );
+    musicplaybox_left_information_name.innerHTML = `${next_name}`
+    musicplaybox_left_information_introduction.innerHTML = `歌手：${next_singername}`
+    music_name.innerHTML = `${next_name}`
+    music_synopsis.innerHTML = `歌手：${next_singername}`
+    //寻找歌词
+    searchlyric(next_hash)
+    //将其数据存入正在播放
+    playnow = {
+        hash: next_hash,
+        songname: next_name,
+        singername: next_singername,
+        imageurl: next_img,
+        url: next_url,
+
+    }
+
+    // createmusiclist(next_name, next_singername, next_hash, next_url, next_img)
+
+    //音频加上hash自定义标签
+    audio.dataset.hash = next_hash
+    updataimage()
+}
+
+
+//更新图片
+function updataimage() {
+    const listLocation = parseInt(audio.dataset.listlocation, 10)
+    if (listLocation == 0) {
+        playerbar_middle_up_left.style.backgroundImage = `url(${document.querySelector('.panel-content').children[hadplaylist.length - 1].dataset.img})`
+
+        playerbar_middle_up_right.style.backgroundImage = `url(${document.querySelector('.panel-content').children[listLocation + 2].dataset.img})}`
+    }
+    else if (listLocation == hadplaylist.length - 1) {
+        playerbar_middle_up_left.style.backgroundImage = `url(${document.querySelector('.panel-content').children[listLocation - 1].dataset.img})`
+
+        playerbar_middle_up_right.style.backgroundImage = `url(${document.querySelector('.panel-content').children[0].dataset.img})`
+
+    }
+    else {
+        console.log('123454')
+        playerbar_middle_up_right.style.backgroundImage = `url(${document.querySelector('.panel-content').children[listLocation + 1].dataset.img})`
+        playerbar_middle_up_left.style.backgroundImage = `url(${document.querySelector('.panel-content').children[listLocation - 1].dataset.img})`
+    }
+
+}
+
+playerbar_middle_up_left.addEventListener('click', () => {
+    audio.dataset.listlocation = hadplaylist.findIndex((music) => music.hash === audio.dataset.hash)
+    if (cycleway_image.dataset.playway === 'soft') {
+        if (audio.dataset.listlocation == 0) {
+            audio.dataset.listlocation = hadplaylist.length - 1
+        }
+        else {
+
+            audio.dataset.listlocation--
+        }
+        playnextmusic(audio.dataset.listlocation)
+    }
+})
+
+
+playerbar_middle_up_right.addEventListener('click', () => {
+    if (cycleway_image.dataset.playway === 'soft') {
+        audio.currentTime = audio.duration
+        audio.play()
+    }
+})

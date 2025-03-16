@@ -3,7 +3,7 @@
     right: 0;
     left: 240px;
     height: 600px;
-    background-color: white;
+    background-color: var(--search_show-bgc);
     top: 100px;
     display: none;
     /* background-color: pink; */
@@ -40,6 +40,7 @@
     line-height: 60px;
     font-size: 24px;
     font-weight: 700;
+    color: var(--search_show_head_right-c);
 }
 
 .search_show_content {
@@ -60,7 +61,7 @@
 }
 
 .search_show_content_list:hover {
-    background-color: rgba(242, 242, 247);
+    background-color: var(--search_show_content_list-bgc);
 }
 
 .search_show_content::-webkit-scrollbar {
@@ -101,13 +102,14 @@
     overflow: hidden;
     font-size: 18px;
     font-weight: 700;
+    color: var(--search_show_content_list_introduction_name-c);
 }
 
 .search_show_content_list_introduction_singer {
     height: 30px;
     width: 200px;
     font-size: 13px;
-    color: rgba(78, 78, 79);
+    color: var(--search_show_content_list_introduction_singer-c);
     overflow: hidden;
 }
 

@@ -1,0 +1,45 @@
+html[data-theme="dark"] {
+    --body-bgc: rgba(34, 34, 34);
+    --search-bar--bgc: rgba(34, 34, 34);
+    --sidebar_up-c: white;
+    --sidebar_up-bgc: rgba(29, 29, 31);
+    --sidebar_in-bgc: rgba(29, 29, 31);
+    --sidebar-list-c: white;
+    --li-active-c: white;
+    --music_types_list-bgc: rgba(50, 50, 50);
+    --music_types_list-c: white;
+    --music_types_list-bgc2: rgba(187, 205, 255);
+    --setting_down-bgc: rgba(34, 34, 34);
+    --cycleway_image_soft-color: white;
+    --musicplaybox_left_information_name-c: white;
+    --lyric_now-c: white;
+    --popup-panel-bg: rgba(31, 31, 31);
+    --add_music_to_mylist-bgc: rgba(34, 34, 34);
+    --add_music_to_mylist-c: white;
+    --add_music_to_mylist-bc: rgba(68, 68, 68);
+    --music_introduction-c: white;
+    --search_show-bgc: rgba(34, 34, 34);
+    --search_show_head_right-c: white;
+    --search_show_content_list_introduction_name-c: white;
+    --search_show_content_list_introduction_singer-c: rgba(184, 184, 184);
+    --search_show_content_list-bgc: rgba(62, 62, 62);
+}
+
+:root {
+    --search-bar--bgc: white;
+    --sidebar_up-c: rgba(29, 29, 31);
+    --sidebar_up-bgc: rgba(242, 242, 247);
+    --sidebar_in-bgc: rgba(242, 242, 247);
+    --li-active-c: black;
+    --music_types_list-bgc: rgba(240, 247, 255);
+    --music_types_list-bgc2: rgba(240, 247, 255);
+    --setting_down-bgc: white;
+    --lyric_now-c: black;
+    --popup-panel-bg: rgba(238, 238, 238);
+    --add_music_to_mylist-bgc: white;
+    --add_music_to_mylist-c: black;
+    --add_music_to_mylist-bc: rgba(227, 227, 229);
+    --search_show_content_list_introduction_singer-c: rgba(78, 78, 79);
+    --search_show_content_list-bgc: rgba(242, 242, 247);
+    --search_show-bgc: white;
+}

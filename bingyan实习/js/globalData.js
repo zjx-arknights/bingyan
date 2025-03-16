@@ -79,6 +79,7 @@ let hadplaylist = []
 
 
 
+
 async function callApi(apiUrl) {
 
     if (!apiUrl) {
@@ -185,8 +186,8 @@ function createcontent_hot(result) {
     //将数据存入数组
     hotcontent.push({
         hash: `${hash}`,
-        songname: `${author_name}`,
-        singername: `${introduction}`,
+        songname: `${introduction}`,
+        singername: `${author_name}`,
         imageurl: `${imageurl}`,
         url: `${url}`,
 
@@ -214,6 +215,12 @@ function createcontent_hot(result) {
         searchlyric(hotcontent[e.currentTarget.dataset.id].hash)
         //加入已播放列表
         createmusiclist(hotcontent[e.currentTarget.dataset.id].songname, hotcontent[e.currentTarget.dataset.id].singername, hotcontent[e.currentTarget.dataset.id].hash, hotcontent[e.currentTarget.dataset.id].url, hotcontent[e.currentTarget.dataset.id].imageurl)
+        //音频加上hash自定义标签
+
+        playnow = hotcontent[e.currentTarget.dataset.id]
+
+        audio.dataset.hash = hotcontent[e.currentTarget.dataset.id].hash
+        updataimage_copy()
     })
 
 }
@@ -326,8 +333,11 @@ function createcontent_search(result) {
         //将其数据存入正在播放
         playnow = searchcontent[e.currentTarget.dataset.id]
 
-        createmusiclist(searchcontent[e.currentTarget.dataset.id].songname, searchcontent[e.currentTarget.dataset.id].singername, searchcontent[e.currentTarget.dataset.id].hash)
+        createmusiclist(searchcontent[e.currentTarget.dataset.id].songname, searchcontent[e.currentTarget.dataset.id].singername, searchcontent[e.currentTarget.dataset.id].hash, searchcontent[e.currentTarget.dataset.id].url, searchcontent[e.currentTarget.dataset.id].imageurl)
 
+        //音频加上hash自定义标签
+        audio.dataset.hash = searchcontent[e.currentTarget.dataset.id].hash
+        updataimage_copy()
     })
 
 }
@@ -350,17 +360,18 @@ function rend(api) {
                 setTimeout(() => {
                     const str = 'http://m.kugou.com/app/i/getSongInfo.php?cmd=playInfo&hash=';
                     const hash = [str, musichash].join('');
-                    console.log(hash);
+                    // console.log(hash);
 
                     callApi(hash)
                         .then(result => {
+                            console.log(result)
                             resultcreate = JSON.parse(result);
                             createcontent_hot(resultcreate);
                         })
                         .catch(error => {
                             console.error("捕获错误:", error);
                         });
-                }, index * 200); // 每次请求之间延时2秒
+                }, index * 500); // 每次请求之间延时2秒
             });
         })
         .catch(error => {
@@ -450,9 +461,15 @@ function createmusiclist(name, singer, hash, url, img) {
         url: url
     })
 
+
     const panelContentList = document.createElement('div');
     panelContentList.classList.add('panel_content_list');
     panelContentList.id = hash
+    panelContentList.dataset.singername = singer
+    panelContentList.dataset.url = url
+    panelContentList.dataset.img = img
+    panelContentList.dataset.name = name
+
     // 创建并添加歌曲名称 div 元素
     const panelContentListName = document.createElement('div');
     panelContentListName.classList.add('panel_content_list_name');
@@ -475,6 +492,50 @@ function createmusiclist(name, singer, hash, url, img) {
     panel_content.appendChild(panelContentList)
     //更新数量
     get_panel_content_list_number()
+
+    panelContentList.addEventListener('dblclick', (e) => {
+
+        playerbar_middle_up_middle.style.backgroundImage = `url(${e.currentTarget.dataset.img})`
+        // console.log(hotcontent[e.currentTarget.dataset.id].url)
+        audio.src = e.currentTarget.dataset.url
+        musicplaybox_left_image.style.backgroundImage = `url(${e.currentTarget.dataset.url})`
+        musicplaybox.style.setProperty(
+            '--dynamic-bg',
+            `url(${e.currentTarget.dataset.img})`
+        );
+        musicplaybox_left_information_name.innerHTML = `${e.currentTarget.dataset.name}`
+        musicplaybox_left_information_introduction.innerHTML = `歌手：${e.currentTarget.dataset.singername}`
+        music_name.innerHTML = `${e.currentTarget.dataset.name}`
+        music_synopsis.innerHTML = `歌手：${e.currentTarget.dataset.singername}`
+        //寻找歌词
+        searchlyric(e.currentTarget.id)
+        //加入已播放列表
+        createmusiclist(e.currentTarget.dataset.name, e.currentTarget.dataset.singername, e.currentTarget.gid, e.currentTarget.dataset.url, e.currentTarget.dataset.img)
+        //音频加上hash自定义标签
+
+        // playnow = hotcontent[e.currentTarget.dataset.id]
+
+        playnow = {
+            hash: `${e.currentTarget.id}`,
+            songname: `${e.currentTarget.dataset.name}`,
+            singername: `${e.currentTarget.dataset.singername}`,
+            imageurl: `${e.currentTarget.dataset.imageurl}`,
+            url: `${e.currentTarget.dataset.url}`,
+
+        }
+
+
+        audio.dataset.hash = e.currentTarget.id
+
+        hadplaylist.pop()
+        const parentElement = document.querySelector('.panel-content');
+        const lastChild = parentElement.lastElementChild;
+        lastChild.remove()
+        updataimage_copy()
+    })
+
+
+
 }
 //删除按键删除
 document.querySelector('.panel-content').addEventListener('click', (event) => {
@@ -636,4 +697,103 @@ function loadLyrics(lyrics_load) {
         lyricline.innerHTML = lyric.text;
         container.appendChild(lyricline);
     });
+}
+
+//更新图片
+function updataimage_copy() {
+    audio.dataset.listlocation = hadplaylist.findIndex((music) => music.hash === audio.dataset.hash)
+    const listLocation = parseInt(audio.dataset.listlocation, 10)
+    if (listLocation == 0) {
+        playerbar_middle_up_left.style.backgroundImage = `url(${document.querySelector('.panel-content').children[hadplaylist.length - 1].dataset.img})`
+
+        playerbar_middle_up_right.style.backgroundImage = `url(${document.querySelector('.panel-content').children[listLocation + 2].dataset.img})}`
+    }
+    else if (listLocation == hadplaylist.length - 1) {
+        playerbar_middle_up_left.style.backgroundImage = `url(${document.querySelector('.panel-content').children[listLocation - 1].dataset.img})`
+
+        playerbar_middle_up_right.style.backgroundImage = `url(${document.querySelector('.panel-content').children[0].dataset.img})`
+
+    }
+    else {
+        console.log('123454')
+        playerbar_middle_up_right.style.backgroundImage = `url(${document.querySelector('.panel-content').children[listLocation + 1].dataset.img})`
+        playerbar_middle_up_left.style.backgroundImage = `url(${document.querySelector('.panel-content').children[listLocation - 1].dataset.img})`
+    }
+
+}
+
+//添加歌单
+const new_list = document.getElementById('new_list')
+const add_music_to_mylist_content = document.querySelector('.add_music_to_mylist_content')
+
+
+new_list.addEventListener('click', () => {
+    var userInput = prompt("请输入歌单名称:")
+    const newDiv = document.createElement('div');
+    newDiv.classList.add('add_music_to_mylist_list');
+    newDiv.dataset.id = userInput
+    newDiv.innerHTML = `<div class="add_music_to_mylist_list_image"></div>${userInput}`
+    const userInput_data = { userInput: userInput }
+    saveDataIfNotExists_all(localstorage_all, userInput_data)
+    newDiv.addEventListener('click', () => {
+        const playnow_data = hadplaylist.find(item => item.hash === audio.dataset.hash)
+        //查看有无相同数据,无则存入
+        saveDataIfNotExists(userInput, playnow_data)
+
+    })
+
+    const new_list_left = document.createElement('div')
+    new_list_left.classList.add('list');
+    new_list_left.classList.add('createPanel_list');
+    new_list_left.innerHTML = userInput
+    new_list_left.dataset.name = userInput
+
+    createPanel.appendChild(new_list_left)
+    add_music_to_mylist_content.appendChild(newDiv)
+
+})
+
+
+// 检查并存入数据localstora有无相同hash
+function saveDataIfNotExists(key, newData) {
+    const storedData = localStorage.getItem(key); // 获取存储的数据
+
+    let musicList = []; // 初始化空数组
+
+    // 如果存储的数据存在，解析为数组
+    if (storedData) {
+        musicList = JSON.parse(storedData);
+    }
+
+    // 检查是否有相同的 hash
+    const isDuplicate = musicList.some(item => item.hash === newData.hash);
+
+    if (!isDuplicate) {
+        // 如果没有相同的 hash，存入新数据
+        musicList.push(newData);
+        localStorage.setItem(key, JSON.stringify(musicList)); // 更新存储
+        // console.log('数据已存入');
+    }
+}
+function saveDataIfNotExists_all(key, newData) {
+    const storedData = localStorage.getItem(key); // 获取存储的数据
+
+    let musicList = []; // 初始化空数组
+
+    // 如果存储的数据存在，解析为数组
+    if (storedData) {
+        musicList = JSON.parse(storedData);
+    }
+
+    // 检查是否有相同的 hash
+    const isDuplicate = musicList.some(item => item.userInput === newData.userInput);
+
+    if (!isDuplicate) {
+        // 如果没有相同的 hash，存入新数据
+        musicList.push(newData);
+        localStorage.setItem(key, JSON.stringify(musicList)); // 更新存储
+        // console.log('数据已存入');
+    }
+
+
 }
