@@ -23,14 +23,16 @@
     align-items: center;
     justify-content: flex-end;
     ; */
+    /* color: yellow; */
 }
 
 .search-bar .to_left {
     float: left;
-    margin: 17px 20px 0 50px;
+    margin: 15px 30px 0 50px;
     height: 20px;
     width: 20px;
     cursor: pointer;
+    color: var(--search-bar-left-c);
 }
 
 .search-bar .to_right {
@@ -39,6 +41,7 @@
     height: 20px;
     width: 20px;
     cursor: pointer;
+    color: var(--search-bar-right-c);
 }
 
 
@@ -99,6 +102,17 @@
     border-bottom: 1px solid rgba(229, 229, 229);
 } */
 
+#hotmusic {
+    display: flex;
+}
+
+#hotmusic_image {
+    width: 30px;
+    height: 20px;
+    background-color: pink;
+
+}
+
 .sidebar_in {
     height: calc(100vh - 250px);
     background-color: var(--sidebar_in-bgc);
@@ -146,14 +160,14 @@
 .content {
     margin-left: 200px;
     /* 避开左侧歌单栏 */
-    margin-top: 160px;
+    margin-top: 165px;
     /* 避开顶部搜索栏 */
     /* margin-bottom: 80px; */
     /* 避开底部播放栏 */
     padding: 20px;
     overflow-y: auto;
     /* 允许垂直滚动 */
-    height: calc(100vh - 180px);
+    height: calc(100vh - 250px);
     /* 减去搜索栏和播放栏的高度 */
     padding: 20px 50px 0;
 }
@@ -167,12 +181,13 @@
     left: 1%;
     width: 97%;
     height: 90px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: var(--playerbar-bgc);
+    /* background-color: rgba(0, 0, 0, 0.5); */
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(10px);
     z-index: 1000;
 }
 
@@ -194,6 +209,7 @@ li {
     float: left;
     color: rgb(120, 120, 120);
     cursor: pointer;
+    transition: all 0.2s;
 }
 
 li:nth-child(even) {
@@ -201,12 +217,27 @@ li:nth-child(even) {
     height: 12px;
     background-color: #666;
     margin: 9px 15px 0;
+
 }
 
 .active {
     font-weight: 700;
-    font-size: 20px;
+    font-size: 24px;
     color: var(--li-active-c);
+    padding: 2px;
+    border-radius: 12px;
+    border-bottom: 2px solid black;
+    background-color: var(--li-hover-bgc);
+}
+
+.exchange li:hover {
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--li-active-c);
+    padding: 2px;
+    border-radius: 12px;
+    border-bottom: 2px solid black;
+    background-color: var(--li-hover-bgc);
 }
 
 .exchange ul {
@@ -227,7 +258,7 @@ li:nth-child(even) {
     position: fixed;
     display: flex;
     flex-wrap: nowrap;
-    top: 100px;
+    top: 105px;
     left: 250px;
     height: 60px;
     /* background-color: pink; */
@@ -246,6 +277,7 @@ li:nth-child(even) {
     cursor: pointer;
     line-height: 40px;
     color: var(--music_types_list-c);
+    overflow: hidden;
 }
 
 .music_types_list:hover {

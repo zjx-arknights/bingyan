@@ -29,7 +29,7 @@
     width: 22px;
     margin-right: 10px;
     margin-right: 10px;
-    background-image: url("../image/添加歌单.png");
+    /* background-image: url("../image/添加歌单.png"); */
     background-size: cover;
 }
 
@@ -74,5 +74,21 @@
 }
 
 .sidebar .sidebar_in .sidebar_content .panel .list:hover {
-    background-color: rgba(255, 255, 255);
+    background-color: var(--sidebar-hover-bgc);
+}
+
+.sidebar_shrink {
+    display: flex;
+    position: relative;
+    font-weight: 700;
+}
+
+#save_mysql {
+    position: absolute;
+    right: 50px;
+    border-radius: 12px;
+    border: 1px solid black;
+    padding: 3px;
+    /* background-color: pink; */
+    cursor: pointer;
 }

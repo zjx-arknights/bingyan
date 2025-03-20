@@ -7,7 +7,7 @@
     left: 240px;
     width: calc(100vw - 200px);
     top: 50px;
-    height: 100px;
+    height: 110px;
     background-color: var(--setting_down-bgc);
     transform: translateY(-100%);
     /* 初始隐藏 */
@@ -23,6 +23,7 @@
     font-size: 24px;
     font-weight: 700;
     margin-left: 60px;
+    color: var(--setting_down-p-bgc);
 }
 
 .setting_theme {
@@ -79,4 +80,29 @@
 .b {
     margin-top: 10px;
     cursor: pointer;
+}
+
+#download_img {
+    height: 20px;
+    width: 20px;
+    /* background-color: pink; */
+    /* background-image: url(../svg/download_light.svg); */
+    background-size: cover;
+    color: var(--download_img-c);
+}
+
+#setting_img {
+    margin-top: 2px;
+    margin-left: 10px;
+    height: 20px;
+    width: 20px;
+    /* background-color: red; */
+    /* background-image: url(../svg/setting_light.svg); */
+    background-size: cover;
+    color: var(--setting_img-c);
+}
+
+#search_button {
+    margin-top: 15px;
+    margin-left: 20%;
 }

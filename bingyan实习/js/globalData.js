@@ -47,6 +47,7 @@ const search_show_head_right = document.querySelector('.search_show_head_right')
 const panel_content = document.querySelector('.panel-content')
 const music_list_all_head_left = document.querySelector('.music_list_all_head_left')
 
+
 // 获取所有子盒子元素
 let panel_content_children = document.querySelectorAll('.panel-content .panel_content_list');
 
@@ -76,7 +77,7 @@ let apiResponse
 //歌词部分
 let playnow = []
 let hadplaylist = []
-
+let listcontent = []
 
 
 
@@ -90,7 +91,7 @@ async function callApi(apiUrl) {
     result_raw = '请求中...';
 
     try {
-        const response = await fetch('http://localhost:3000/call-api', {
+        const response = await fetch('http://localhost:55566/call-api', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -221,6 +222,7 @@ function createcontent_hot(result) {
 
         audio.dataset.hash = hotcontent[e.currentTarget.dataset.id].hash
         updataimage_copy()
+        ifonly0ne()
     })
 
 }
@@ -338,6 +340,7 @@ function createcontent_search(result) {
         //音频加上hash自定义标签
         audio.dataset.hash = searchcontent[e.currentTarget.dataset.id].hash
         updataimage_copy()
+        ifonly0ne()
     })
 
 }
@@ -357,6 +360,7 @@ function rend(api) {
             apiResponse = JSON.parse(result);
             searchfree(apiResponse).forEach((musichash, index) => {
                 // 给每次请求加上延时（比如2000ms，也就是2秒）
+                setTimeout(() => { }, 500)
                 setTimeout(() => {
                     const str = 'http://m.kugou.com/app/i/getSongInfo.php?cmd=playInfo&hash=';
                     const hash = [str, musichash].join('');
@@ -399,11 +403,15 @@ hot.addEventListener('click', () => {
     rend('http://mobilecdnbj.kugou.com/api/v5/special/recommend?recommend_expire=0&sign=52186982747e1404d426fa3f2a1e8ee4&plat=0&uid=0&version=9108&page=1&area_code=1&appid=1005&mid=286974383886022203545511837994020015101&_t=1545746286');
 });
 //点击搜索并渲染
+document.getElementById("inputField").addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        search_and_rend()
+    }
+});
+
 async function search_and_rend() {
     searchcontent = [];
-    if (!search_show.classList.contains('search_show_show')) {
-        search_show.classList.add('search_show_show');
-    }
+
     search_show_content.innerHTML = ``;
     const freeSongHashesAll = [];
     const search_key = document.getElementById("inputField").value;
@@ -412,7 +420,10 @@ async function search_and_rend() {
     // 添加延迟函数
     const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-    if (search_key.trim() !== "") {
+    if (search_key.trim() !== '') {
+        if (!search_show.classList.contains('search_show_show')) {
+            search_show.classList.add('search_show_show');
+        }
         try {
             // 分页请求添加间隔
             for (let i = 1; i < 6; i++) {
@@ -554,6 +565,14 @@ document.querySelector('.panel-content').addEventListener('click', (event) => {
         }
     }
 });
+//删除所有
+document.querySelector('.music_list_all_head_right').addEventListener('click', () => {
+
+    document.querySelector('.panel-content').innerHTML = ``
+    hadplaylist.splice(0, hadplaylist.length);
+
+})
+
 //获取子盒子数量
 function get_panel_content_list_number() {
     panel_content_children = document.querySelectorAll('.panel-content .panel_content_list')
@@ -561,6 +580,7 @@ function get_panel_content_list_number() {
     music_list_all_head_left.innerHTML = `共${numberOfChildren}首`
 
 }
+
 
 
 //渲染测试样本
@@ -703,10 +723,17 @@ function loadLyrics(lyrics_load) {
 function updataimage_copy() {
     audio.dataset.listlocation = hadplaylist.findIndex((music) => music.hash === audio.dataset.hash)
     const listLocation = parseInt(audio.dataset.listlocation, 10)
-    if (listLocation == 0) {
+
+    if (hadplaylist.length == 1) {
         playerbar_middle_up_left.style.backgroundImage = `url(${document.querySelector('.panel-content').children[hadplaylist.length - 1].dataset.img})`
 
-        playerbar_middle_up_right.style.backgroundImage = `url(${document.querySelector('.panel-content').children[listLocation + 2].dataset.img})}`
+        playerbar_middle_up_right.style.backgroundImage = `url(${document.querySelector('.panel-content').children[hadplaylist.length - 1].dataset.img})`
+        //md之前这里多打了个}
+    }
+    else if (listLocation == 0) {
+        playerbar_middle_up_left.style.backgroundImage = `url(${document.querySelector('.panel-content').children[hadplaylist.length - 1].dataset.img})`
+
+        playerbar_middle_up_right.style.backgroundImage = `url(${document.querySelector('.panel-content').children[listLocation + 1].dataset.img})`
     }
     else if (listLocation == hadplaylist.length - 1) {
         playerbar_middle_up_left.style.backgroundImage = `url(${document.querySelector('.panel-content').children[listLocation - 1].dataset.img})`
@@ -739,7 +766,7 @@ new_list.addEventListener('click', () => {
         const playnow_data = hadplaylist.find(item => item.hash === audio.dataset.hash)
         //查看有无相同数据,无则存入
         saveDataIfNotExists(userInput, playnow_data)
-
+        add_music_to_mylist.classList.remove('add_music_to_mylist_active')
     })
 
     const new_list_left = document.createElement('div')
@@ -747,7 +774,6 @@ new_list.addEventListener('click', () => {
     new_list_left.classList.add('createPanel_list');
     new_list_left.innerHTML = userInput
     new_list_left.dataset.name = userInput
-
     createPanel.appendChild(new_list_left)
     add_music_to_mylist_content.appendChild(newDiv)
 
@@ -797,3 +823,387 @@ function saveDataIfNotExists_all(key, newData) {
 
 
 }
+
+
+//渲染localstorage
+const localstorage_all = 'localstorage_all'
+if (JSON.parse(localStorage.getItem(localstorage_all)))
+    JSON.parse(localStorage.getItem(localstorage_all)).forEach(element => {
+        const new_list_left = document.createElement('div')
+        new_list_left.classList.add('list');
+        new_list_left.classList.add('createPanel_list');
+        new_list_left.innerHTML = element.userInput
+        new_list_left.dataset.name = element.userInput
+        createPanel.appendChild(new_list_left)
+
+        //渲染创建歌单
+        new_list_left.addEventListener('click', () => {
+            listcontent = []
+            search_show_head_right.innerHTML = `"${element.userInput}"`;
+            search_show_content.innerHTML = ``
+            if (!search_show.classList.contains('search_show_show')) {
+                search_show.classList.add('search_show_show');
+            }
+
+            const element_userInput = JSON.parse(localStorage.getItem(element.userInput))
+            element_userInput.forEach((data) => {
+                const hash = data.hash || ''
+                const imageurl = data.imageurl || '';
+                const songname = data.songname || ''
+                const singername = data.singername || ''
+                const url = data.url || ''
+
+                //将数据存入数组
+                listcontent.push({
+                    hash: `${hash}`,
+                    singername: `${singername}`,
+                    songname: `${songname}`,
+                    imageurl: `${imageurl}`,
+                    url: `${url}`,
+                })
+                localstorage_create(hash, singername, songname, imageurl, url)
+
+            })
+
+        })
+
+
+        const newDiv = document.createElement('div');
+        newDiv.classList.add('add_music_to_mylist_list');
+        newDiv.dataset.id = element.userInput
+        newDiv.innerHTML = `<div class="add_music_to_mylist_list_image"></div>${element.userInput}`
+        newDiv.addEventListener('click', () => {
+            const playnow_data = hadplaylist.find(item => item.hash === audio.dataset.hash)
+            //查看有无相同数据,无则存入
+            saveDataIfNotExists(element.userInput, playnow_data)
+            add_music_to_mylist.classList.remove('add_music_to_mylist_active')
+        })
+        add_music_to_mylist_content.appendChild(newDiv)
+    });
+
+
+function localstorage_create(hash, singername, songname, imageurl, url) {
+    // 创建最外层的 div 元素
+    const searchShowContentList = document.createElement('div');
+    searchShowContentList.className = 'search_show_content_list';
+    searchShowContentList.dataset.id = `${listcontent.length - 1}`
+    // 创建包含图片的 div 元素
+    const searchShowContentListImage = document.createElement('div');
+    searchShowContentListImage.className = 'search_show_content_list_image';
+
+    // 创建图片框 div 元素
+    const searchShowContentListImagebox = document.createElement('div');
+    searchShowContentListImagebox.className = 'search_show_content_list_imagebox';
+    searchShowContentListImagebox.style.backgroundImage = `url(${imageurl})`
+
+    // 将图片框 div 添加到图片 div 中
+    searchShowContentListImage.appendChild(searchShowContentListImagebox);
+
+    // 创建包含介绍的 div 元素
+    const searchShowContentListIntroduction = document.createElement('div');
+    searchShowContentListIntroduction.className = 'search_show_content_list_introduction';
+
+    // 创建名称 div 元素
+    const searchShowContentListIntroductionName = document.createElement('div');
+    searchShowContentListIntroductionName.className = 'search_show_content_list_introduction_name';
+    searchShowContentListIntroductionName.innerHTML = `${songname}`;
+
+    // 创建歌手 div 元素
+    const searchShowContentListIntroductionSinger = document.createElement('div');
+    searchShowContentListIntroductionSinger.className = 'search_show_content_list_introduction_singer';
+    searchShowContentListIntroductionSinger.innerHTML = `${singername}`;
+
+    // 将名称和歌手 div 添加到介绍 div 中
+    searchShowContentListIntroduction.appendChild(searchShowContentListIntroductionName);
+    searchShowContentListIntroduction.appendChild(searchShowContentListIntroductionSinger);
+
+    // 创建专辑 div 元素
+    const searchShowContentListAlbum = document.createElement('div');
+    searchShowContentListAlbum.className = 'search_show_content_list_album';
+    searchShowContentListAlbum.innerHTML = `专辑`;
+
+    // 创建包含添加按钮的 div 元素
+    const searchShowContentListAdd = document.createElement('div');
+    searchShowContentListAdd.className = 'search_show_content_list_add';
+
+    // 创建添加到当前播放的 img 元素
+    const searchShowContentListAddToMyList = document.createElement('img');
+    searchShowContentListAddToMyList.className = 'search_show_content_list_addtomylist';
+    searchShowContentListAddToMyList.title = '在此歌单删除该歌曲';
+    searchShowContentListAddToMyList.src = 'svg/music_list_all_head_right.svg';
+
+    // 创建添加到我的歌单的 img 元素
+    const searchShowContentListAddToNowPlay = document.createElement('img');
+    searchShowContentListAddToNowPlay.className = 'search_show_content_list_addtonowplay';
+    searchShowContentListAddToNowPlay.title = '添加到我的歌单';
+    searchShowContentListAddToNowPlay.src = 'svg/search_show_content_list_addtonowplay.svg';
+
+    // 将两个 img 元素添加到添加按钮 div 中
+    searchShowContentListAdd.appendChild(searchShowContentListAddToMyList);
+    searchShowContentListAdd.appendChild(searchShowContentListAddToNowPlay);
+
+    // 将所有子元素添加到最外层的 div 中
+    searchShowContentList.appendChild(searchShowContentListImage);
+    searchShowContentList.appendChild(searchShowContentListIntroduction);
+    searchShowContentList.appendChild(searchShowContentListAlbum);
+    searchShowContentList.appendChild(searchShowContentListAdd);
+
+    // 将最外层的 div 添加到文档中的某个容器中
+    search_show_content.appendChild(searchShowContentList);
+
+    //双击事件，避免误触
+    searchShowContentList.addEventListener('dblclick', (e) => {
+        // console.log('7766')
+        // console.log(searchcontent[e.currentTarget.dataset.id].url)
+        playerbar_middle_up_middle.style.backgroundImage = `url(${listcontent[e.currentTarget.dataset.id].imageurl})`
+
+        audio.src = listcontent[e.currentTarget.dataset.id].url
+        musicplaybox_left_image.style.backgroundImage = `url(${listcontent[e.currentTarget.dataset.id].imageurl})`
+        musicplaybox.style.setProperty(
+            '--dynamic-bg',
+            `url(${listcontent[e.currentTarget.dataset.id].imageurl})`
+        );
+        musicplaybox_left_information_name.innerHTML = `${listcontent[e.currentTarget.dataset.id].songname}`
+        musicplaybox_left_information_introduction.innerHTML = `歌手：${listcontent[e.currentTarget.dataset.id].singername}`
+        music_name.innerHTML = `${listcontent[e.currentTarget.dataset.id].songname}`
+        music_synopsis.innerHTML = `歌手：${listcontent[e.currentTarget.dataset.id].singername}`
+        //寻找歌词
+        searchlyric(listcontent[e.currentTarget.dataset.id].hash)
+        //将其数据存入正在播放
+        playnow = listcontent[e.currentTarget.dataset.id]
+
+        createmusiclist(listcontent[e.currentTarget.dataset.id].songname, listcontent[e.currentTarget.dataset.id].singername, listcontent[e.currentTarget.dataset.id].hash, listcontent[e.currentTarget.dataset.id].url, listcontent[e.currentTarget.dataset.id].imageurl)
+
+        //音频加上hash自定义标签
+        audio.dataset.hash = listcontent[e.currentTarget.dataset.id].hash
+        updataimage_copy()
+        ifonly0ne()
+    })
+
+    // searchShowContentListAddToMyList.addEventListener('')
+
+}
+
+function ifonly0ne() {
+
+}
+
+
+
+
+//数据库
+let download_name
+let download_password
+//登录界面
+
+const loginButton = document.getElementById('loginButton');
+// const overlay = document.getElementById('overlay');
+const modal = document.getElementById('modal');
+const confirmButton = document.getElementById('confirmButton');
+const cancelButton = document.getElementById('cancelButton');
+const usernameInput = document.getElementById('username');
+const passwordInput = document.getElementById('password');
+const download_img = document.getElementById('download_img');
+// 点击登录按钮，显示模态框和遮罩层
+download_img.addEventListener('click', () => {
+    // overlay.style.display = 'block';
+    modal.style.display = 'block';
+});
+
+// 点击确定按钮，获取输入信息
+confirmButton.addEventListener('click', async (event) => {
+    const name = usernameInput.value;
+    const password = passwordInput.value;
+
+    if (name && password) {
+        //调用数据库
+
+
+        try {
+            // 发送POST请求到后端
+            const response = await fetch('http://127.0.0.1:55566/check-user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, password }), // 将数据转换为JSON格式
+            });
+
+            // 解析响应数据
+            const data = await response.json();
+
+            // 显示结果
+            if (response.ok && data !== '000') {
+
+                delete_localstorage()
+
+                mysql_data_tolocal(JSON.stringify(data), name, password)
+                show_dear_users()
+                // console.log(JSON.stringify(data)); // 格式化显示list数据
+                location.reload()//强制刷新页面
+            }
+            else if (data === '000') {
+                //自动注册
+                try {
+                    const list = localstorage_getall()
+                    // 发送POST请求到后端
+                    const response = await fetch('http://127.0.0.1:55566/insert-data', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ name, password, list: JSON.parse(list) }), // 将list解析为JSON
+                    });
+
+                    // 解析响应数据
+                    const data = await response.json();
+
+                    // 显示结果
+                    if (response.ok) {
+                        delete_localstorage()
+
+                        mysql_data_tolocal(JSON.stringify(data), name, password)
+                        location.reload()//强制刷新页面
+                    } else {
+                        console.log(data.error); // 显示错误信息
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+                show_dear_users()
+                alert('你还未注册账号，已经自动为你注册')
+
+            }
+
+            else {
+                console.log(data.error); // 显示错误信息
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+
+
+        closeModal();
+
+    } else {
+        alert('请输入用户名和密码！');
+    }
+});
+
+// 点击取消按钮，关闭模态框
+cancelButton.addEventListener('click', closeModal);
+
+// // 点击遮罩层，关闭模态框
+// overlay.addEventListener('click', closeModal);
+
+// 关闭模态框的函数
+function closeModal() {
+    // overlay.style.display = 'none';
+    modal.style.display = 'none';
+    usernameInput.value = ''; // 清空输入框
+    passwordInput.value = ''; // 清空输入框
+}
+
+//打包localstorage函数
+function localstorage_getall() {
+
+    const data_all = []
+
+    JSON.parse(localStorage.getItem(localstorage_all)).forEach((list) => {
+        const list_each = JSON.parse(localStorage.getItem(list.userInput))
+        const list_each_add = {
+            list: list.userInput,
+            data: list_each
+        }
+        data_all.push(list_each_add)
+    })
+
+    return JSON.stringify(data_all)
+}
+
+//解析数据库list函数
+function mysql_data_tolocal(data_mysql, name, password) {
+    console.log('5566')
+    const localstorage_all_data = []
+    const localstorage_all = 'localstorage_all'
+    let list = JSON.parse(data_mysql).list
+    // console.log(typeof JSON.parse(list))
+    JSON.parse(list).forEach((list_data) => {
+
+        localstorage_all_data.push({
+            userInput: list_data.list
+        })
+
+        localStorage.setItem(list_data.list, JSON.stringify(list_data.data))
+
+    })
+    const localstorage_all_data_str = JSON.stringify(localstorage_all_data)
+    localStorage.setItem(localstorage_all, localstorage_all_data_str)
+    localStorage.setItem('download_userdata', JSON.stringify({
+        download_name: name,
+        download_password: password
+    }))
+}
+
+//将数据库更新
+async function updata_mysql() {
+    const list = localstorage_getall()
+    const data_all = JSON.parse(localStorage.getItem('download_userdata'))
+    const name = data_all.download_name
+    const password = data_all.download_password
+
+    try {
+        // 发送POST请求到后端
+        const response = await fetch('http://127.0.0.1:55566/update-list', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, password, list: JSON.parse(list) }), // 将list解析为JSON
+        });
+
+        // 解析响应数据
+        const data = await response.json();
+        // 显示结果
+        if (response.ok) {
+            console.log(JSON.stringify(data))
+            alert('保存成功'); // 格式化显示响应数据
+        } else {
+            console.log(data.error); // 显示错误信息
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+
+}
+
+//删除localstorage
+function delete_localstorage() {
+    if (localStorage.getItem('download_userdata'))
+        localStorage.removeItem('download_userdata')
+    let localstorage_all = null
+    if (localStorage.getItem('localstorage_all'))
+        localstorage_all = JSON.parse(localStorage.getItem('localstorage_all'))
+    if (localstorage_all != null)
+        localstorage_all.forEach((list) => {
+            const list_name = list.userInput
+            // console.log(list_name)
+            localStorage.removeItem(list_name)
+
+        })
+    localStorage.removeItem('localstorage_all')
+
+}
+
+//显示用户信息
+function show_dear_users() {
+    if (localStorage.getItem('download_userdata')) {
+        const dear_users_information = JSON.parse(localStorage.getItem('download_userdata'))
+
+        document.getElementById('login_information').innerHTML = `欢迎你：${dear_users_information.download_name}`
+    }
+}
+show_dear_users()
+
+
+

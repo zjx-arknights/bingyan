@@ -15,6 +15,32 @@ function checkAudioPlaying() {
         const box = document.createElement('div')
         box.classList.add('playerbar_middle_up_middle_startmask')
         playerbar_middle_up_middle_copy.appendChild(box)
+        //把正在播放的音频标蓝
+
+
+        const parentBox = document.querySelector('.panel-content');
+
+        // const specificElement = parentBox.querySelector('.panel_content_list_blue');
+
+        // 3. 如果找到具有特定类名的元素，则删除
+        if (parentBox.querySelector('.panel_content_list_blue')) {
+            parentBox.querySelector('.panel_content_list_blue').classList.remove('panel_content_list_blue');
+        }
+
+        // 4. 获取所有子盒子
+        const children = parentBox.children;
+
+        // 5. 定义要添加标签的子盒子索引（例如第 n 个）
+        const n = hadplaylist.findIndex((music) => music.hash === audio.dataset.hash); // 这里设置为第3个子盒子，可以根据需要修改
+
+        // 6. 检查是否存在第 n 个子盒子
+        if (children.length >= n) {
+            // 获取第 n 个子盒子（索引从 0 开始，所以是 children[n - 1]）
+            const nthChild = children[n];
+
+            nthChild.classList.add('panel_content_list_blue')
+        }
+
 
 
     });
@@ -208,7 +234,8 @@ function updateVolume(volume) {
     const percentage = volume * 100 + '%';
     fill.style.width = percentage;
     thumb.style.left = percentage;
-    console.log('当前音量:', volume.toFixed(2));
+    audio.volume = volume;
+    // console.log('当前音量:', volume.toFixed(2));
 }
 
 // 事件监听
@@ -227,7 +254,8 @@ sliderContainer.addEventListener('click', (e) => {
 });
 
 // 初始化音量
-updateVolume(0.5);
+updateVolume(1);
+
 
 //进度条
 const progressContainer = document.getElementById('progressContainer');
@@ -289,15 +317,30 @@ cycleway_image.dataset.playway = 'soft'
 cycleway_image.addEventListener('click', () => {
     if (cycleway_image.dataset.playway === 'soft') {
         cycleway_image.dataset.playway = 'one'
-        cycleway_image.style.backgroundImage = `url(svg/cycleway_image_one.svg)`
+        if (istheme === 0) {
+            cycleway_image.style.backgroundImage = `url(svg/cycleway_image_one.svg)`
+        }
+        else {
+            cycleway_image.style.backgroundImage = `url(svg/cycleway_image_one_dark.svg)`
+        }
     }
     else if (cycleway_image.dataset.playway === 'one') {
         cycleway_image.dataset.playway = 'chaos'
-        cycleway_image.style.backgroundImage = `url(svg/cycleway_image_chaos.svg)`
+        if (istheme === 0) {
+            cycleway_image.style.backgroundImage = `url(svg/cycleway_image_chaos.svg)`
+        }
+        else {
+            cycleway_image.style.backgroundImage = `url(svg/cycleway_image_chaos_dark.svg)`
+        }
     }
     else {
         cycleway_image.dataset.playway = 'soft'
-        cycleway_image.style.backgroundImage = `url(svg/cycleway_image_soft.svg)`
+        if (istheme === 0) {
+            cycleway_image.style.backgroundImage = `url(svg/cycleway_image_soft.svg)`
+        }
+        else {
+            cycleway_image.style.backgroundImage = `url(svg/cycleway_image_soft_dark.svg)`
+        }
     }
 
 
@@ -382,16 +425,19 @@ function playnextmusic(musiclocation) {
     //音频加上hash自定义标签
     audio.dataset.hash = next_hash
     updataimage()
+    audio.play()
 }
 
 
 //更新图片
 function updataimage() {
     const listLocation = parseInt(audio.dataset.listlocation, 10)
+
+
     if (listLocation == 0) {
         playerbar_middle_up_left.style.backgroundImage = `url(${document.querySelector('.panel-content').children[hadplaylist.length - 1].dataset.img})`
 
-        playerbar_middle_up_right.style.backgroundImage = `url(${document.querySelector('.panel-content').children[listLocation + 2].dataset.img})}`
+        playerbar_middle_up_right.style.backgroundImage = `url(${document.querySelector('.panel-content').children[listLocation + 2].dataset.img})`
     }
     else if (listLocation == hadplaylist.length - 1) {
         playerbar_middle_up_left.style.backgroundImage = `url(${document.querySelector('.panel-content').children[listLocation - 1].dataset.img})`
@@ -419,6 +465,16 @@ playerbar_middle_up_left.addEventListener('click', () => {
         }
         playnextmusic(audio.dataset.listlocation)
     }
+    else if (cycleway_image.dataset.playway === 'one') {
+        audio.currentTime = 0
+    }
+    else {
+        let random_location = Math.floor(Math.random() * (hadplaylist.length))
+        audio.dataset.listlocation = random_location
+        playnextmusic(audio.dataset.listlocation)
+
+    }
+
 })
 
 
@@ -427,4 +483,14 @@ playerbar_middle_up_right.addEventListener('click', () => {
         audio.currentTime = audio.duration
         audio.play()
     }
+    else if (cycleway_image.dataset.playway === 'one') {
+        audio.currentTime = 0
+    }
+    else {
+        let random_location = Math.floor(Math.random() * (hadplaylist.length))
+        audio.dataset.listlocation = random_location
+        playnextmusic(audio.dataset.listlocation)
+
+    }
+
 })

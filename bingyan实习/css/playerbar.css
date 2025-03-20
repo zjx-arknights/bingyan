@@ -3,6 +3,7 @@
     justify-content: center;
     z-index: 1004;
     border-radius: 20px;
+    left: 20px;
 }
 
 .playerbar_left {
@@ -57,9 +58,10 @@
     width: 20px;
     height: 20px;
     /* background-color: blueviolet; */
-    background-image: url(../svg/music_list_all_image.svg);
+    /* background-image: url(../svg/music_list_all_image.svg); */
     background-size: cover;
-    cursor: pointer;
+    cursor: pointecr;
+    color: var(--music_list_all_image-c);
 }
 
 .splice {
@@ -68,7 +70,7 @@
     margin-right: 10px;
     height: 30%;
     width: 2px;
-    background-color: black;
+    background-color: var(--splice-bgc);
 
 }
 
@@ -86,7 +88,7 @@
     width: 100%;
     /* background-color: aquamarine; */
     line-height: 30px;
-    color: black;
+    color: var(--music_name-c);
     font-weight: 700;
     font-size: 20px;
 }
@@ -97,7 +99,7 @@
     line-height: 20px;
     /* background-color: bisque; */
     color: rgba(115, 152, 187);
-
+    cursor: pointer;
 }
 
 .music_synopsis:hover {
@@ -115,6 +117,7 @@
 }
 
 .playerbar_middle_up_left {
+    position: relative;
     margin-top: 30px;
     height: 60px;
     width: 40px;
@@ -152,6 +155,7 @@
 }
 
 .playerbar_middle_up_right {
+    position: relative;
     margin-top: 30px;
     height: 60px;
     width: 40px;
@@ -278,7 +282,8 @@
     height: 20px;
     width: 20px;
     /* background-color: #f44336; */
-    background-image: url(../svg/playerbar_right_addmusic_image.svg);
+    /* background-image: url(../svg/playerbar_right_addmusic_image.svg); */
+    color: var(--playerbar_right_addmusic_image-c);
     background-size: cover;
     cursor: pointer;
 }
@@ -286,8 +291,9 @@
 .musicscreen_image {
     height: 20px;
     width: 20px;
+    color: var(--musicscreen_image-c);
     /* background-color: #f44336; */
-    background-image: url(../svg/musicscreen_image_up.svg);
+    /* background-image: url(../svg/musicscreen_image_up.svg); */
     background-size: cover;
     cursor: pointer;
     transition: transform 0.5s ease;
@@ -370,7 +376,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: #ddd;
+    background: var(--track-bgc);
     transform: translateY(-50%);
     border-radius: 2px;
 }
@@ -378,7 +384,7 @@
 .fill {
     position: absolute;
     height: 100%;
-    background: #000;
+    background: var(--fill-bgc);
     width: 50%;
     /* 初始音量 */
     border-radius: 2px;
@@ -454,4 +460,71 @@
 
 .progress-handle:hover {
     transform: translate(-50%, -50%) scale(1.2);
+}
+
+.playerbar_middle_up_right::after {
+    display: none;
+    content: "";
+    /* 伪元素必须设置 content */
+    position: absolute;
+    /* 绝对定位 */
+    top: 50%;
+    /* 垂直居中 */
+    left: 50%;
+    /* 水平居中 */
+    transform: translate(-50%, -50%);
+    /* 精确居中 */
+    width: 100%;
+    /* 图片的宽度 */
+    height: 100%;
+    /* 图片的高度 */
+    border-radius: 20px;
+    background-image: url(../image/right_chaos.png);
+    /* 替换为你的图片路径 */
+    background-size: cover;
+    /* 图片覆盖整个伪元素 */
+    background-position: center;
+    /* 图片居中显示 */
+    z-index: 1;
+    /* 确保伪元素在盒子内容上方 */
+}
+
+.playerbar_middle_up_left::after {
+    display: none;
+    content: "";
+    /* 伪元素必须设置 content */
+    position: absolute;
+    /* 绝对定位 */
+    top: 50%;
+    /* 垂直居中 */
+    left: 50%;
+    /* 水平居中 */
+    transform: translate(-50%, -50%);
+    /* 精确居中 */
+    width: 100%;
+    /* 图片的宽度 */
+    height: 100%;
+    /* 图片的高度 */
+    border-radius: 20px;
+    background-image: url(../image/left_chaos.png);
+    /* 替换为你的图片路径 */
+    background-size: cover;
+    /* 图片覆盖整个伪元素 */
+    background-position: center;
+    /* 图片居中显示 */
+    z-index: 1;
+    /* 确保伪元素在盒子内容上方 */
+}
+
+.playerbar_middle_up_left:hover::after {
+    display: block;
+}
+
+.playerbar_middle_up_right:hover::after {
+    display: block;
+}
+
+.playerbar_middle_down {
+    color: var(--playerbar_middle_down-c);
+
 }

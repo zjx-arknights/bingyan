@@ -142,6 +142,11 @@
     color: rgba(1, 122, 254);
 }
 
+.panel_content_list_blue {
+    background-color: rgba(242, 242, 242);
+    color: rgba(1, 122, 254);
+}
+
 .panel_content_list_delete:hover {
     cursor: pointer;
 }

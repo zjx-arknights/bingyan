@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/musicplaybox.css">
     <link rel="stylesheet" href="css/search_show.css">
     <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/download.css">
 </head>
 
 <body>
@@ -22,7 +23,9 @@
         <!-- 左侧歌单栏 -->
         <div class="sidebar">
             <div class="sidebar_up">
-                <div class="list sidebar_shrink">冰岩</div>
+                <div class="list sidebar_shrink">冰岩
+                    <div id="save_mysql" onclick="updata_mysql()">点我保存</div>
+                </div>
                 <!-- <div class="list sidebar_create ">
                     <div class="sidebar_create_image"></div>
                     <div class="text">创建歌单</div>
@@ -30,9 +33,23 @@
                 <div class="list sidebar_up_bottom">收藏的歌单</div> -->
             </div>
             <div class="sidebar_in">
-                <div class="list" id="hotmusic" onclick="turn_to_hot()">热门歌曲（免费版）</div>
+                <div class="list" id="hotmusic" onclick="turn_to_hot()">
+                    <!-- <div id="hotmusic_image"></div> -->
+                    歌曲（免费版）
+                </div>
                 <div class="list sidebar_create menu-item" id="createPlaylist">
-                    <div class="sidebar_create_image"></div>
+                    <div class="sidebar_create_image">
+                        <svg ng-click="showDialog(5)" t="1659442568393" viewBox="0 0 1024 1024" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" p-id="1663" width="20" height="20">
+                            <path
+                                d="M842 62H182c-66 0-120 54-120 120v660c0 66 54 120 120 120h660c66 0 120-54 120-120V182c0-66-54-120-120-120z m30 750c0 33-27 60-60 60H212c-33 0-60-27-60-60V212c0-33 27-60 60-60h600c33 0 60 27 60 60v600z"
+                                fill="currentColor" p-id="1664"></path>
+                            <path
+                                d="M737 467H557V287c0-24.8-20.2-45-45-45s-45 20.2-45 45v180H287c-24.8 0-45 20.2-45 45s20.2 45 45 45h180v180c0 24.8 20.2 45 45 45s45-20.2 45-45V557h180c24.8 0 45-20.2 45-45s-20.2-45-45-45z"
+                                fill="currentColor" p-id="1665"></path>
+                        </svg>
+
+                    </div>
                     <div class="text">创建的歌单</div>
                 </div>
 
@@ -54,12 +71,38 @@
     <div class="right">
         <!-- 顶部搜索栏 -->
         <div class="search-bar">
-            <div class="to_left"><img src="image/left.png"></div>
-            <div class="to_right"><img src="image/righ.png"></div>
-            <button type="button" onclick="search_and_rend()">获取内容</button>
-            <div class="setting" onclick="setting()"><img src="image/setting.png"></div>
+            <div class="to_left">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24">
+                    <path
+                        d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"
+                        fill="currentColor" />
+                </svg>
+
+            </div>
+            <div class="to_right"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24">
+                    <path
+                        d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"
+                        fill="currentColor" />
+                </svg>
+            </div>
+            <div class="setting" onclick="setting()">
+                <div id="setting_img">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24">
+                        <path
+                            d="M487.4 315.7l-42.6-24.6c4.3-23.2 4.3-47 0-70.2l42.6-24.6c4.9-2.8 7.1-8.6 5.5-14-11.1-35.6-30-67.8-54.7-94.6-3.8-4.1-10-5.1-14.8-2.3L380.8 110c-17.9-15.4-38.5-27.3-60.8-35.1V25.8c0-5.6-3.9-10.5-9.4-11.7-36.7-8.2-74.3-7.8-109.2 0-5.5 1.2-9.4 6.1-9.4 11.7V75c-22.2 7.9-42.8 19.8-60.8 35.1L88.7 85.5c-4.9-2.8-11-1.9-14.8 2.3-24.7 26.7-43.6 58.9-54.7 94.6-1.7 5.4.6 11.2 5.5 14L67.3 221c-4.3 23.2-4.3 47 0 70.2l-42.6 24.6c-4.9 2.8-7.1 8.6-5.5 14 11.1 35.6 30 67.8 54.7 94.6 3.8 4.1 10 5.1 14.8 2.3l42.6-24.6c17.9 15.4 38.5 27.3 60.8 35.1v49.2c0 5.6 3.9 10.5 9.4 11.7 36.7 8.2 74.3 7.8 109.2 0 5.5-1.2 9.4-6.1 9.4-11.7v-49.2c22.2-7.9 42.8-19.8 60.8-35.1l42.6 24.6c4.9 2.8 11 1.9 14.8-2.3 24.7-26.7 43.6-58.9 54.7-94.6 1.5-5.5-.7-11.3-5.6-14.1zM256 336c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80z"
+                            fill="currentColor" />
+                    </svg>
+
+                </div>
+            </div>
             <div class="download">
-                <img src="image/Snipaste_2025-03-10_16-59-30.png">
+                <div id="download_img">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24">
+                        <path
+                            d="M617.386667 896a42.666667 42.666667 0 0 1-42.666667-42.666667v-184.746666a59.306667 59.306667 0 0 0-59.306667-59.306667H209.92a59.306667 59.306667 0 0 0-59.306667 59.306667V853.333333a42.666667 42.666667 0 0 1-85.333333 0v-184.746666a144.64 144.64 0 0 1 144.64-144.64h305.493333a144.64 144.64 0 0 1 144.64 144.64V853.333333a42.666667 42.666667 0 0 1-42.666666 42.666667zM922.026667 896a42.666667 42.666667 0 0 1-42.666667-42.666667v-184.746666a59.306667 59.306667 0 0 0-59.306667-59.306667h-128a42.666667 42.666667 0 1 1 0-85.333333h128a144.64 144.64 0 0 1 144.64 144.64V853.333333a42.666667 42.666667 0 0 1-42.666666 42.666667zM362.666667 491.093333a195.84 195.84 0 1 1 195.413333-195.413333 195.84 195.84 0 0 1-195.413333 195.413333z m0-305.92a110.506667 110.506667 0 1 0 110.08 110.506667A110.506667 110.506667 0 0 0 362.666667 185.173333zM659.2 491.093333a42.666667 42.666667 0 0 1 0-85.333333 110.506667 110.506667 0 0 0 0-220.586667 42.666667 42.666667 0 0 1 0-85.333333 195.84 195.84 0 0 1 0 391.253333z"
+                            fill="currentColor" />
+                    </svg>
+                </div>
             </div>
             <div class="input_">
                 <input type="text" id="inputField" placeholder="搜索歌曲...">
@@ -123,12 +166,17 @@
     <div class="playerbar">
         <div class="playerbar_left">
             <div class="music_list_all">
-                <div class="music_list_all_image"></div>
+                <div class="music_list_all_image"><svg width="24" height="24" viewBox="0 0 512 512"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M16 256h256a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16zm0-128h256a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16H16A16 16 0 0 0 0 80v32a16 16 0 0 0 16 16zm128 192H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h128a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM470.94 1.33l-96.53 28.51A32 32 0 0 0 352 60.34V360a148.76 148.76 0 0 0-48-8c-61.86 0-112 35.82-112 80s50.14 80 112 80 112-35.82 112-80V148.15l73-21.39a32 32 0 0 0 23-30.71V32a32 32 0 0 0-41.06-30.67z"
+                            fill="currentColor" />
+                    </svg></div>
             </div>
             <div class="splice"></div>
             <div class="music_information">
-                <div class="music_name">222</div>
-                <div class="music_synopsis">333</div>
+                <div class="music_name">歌曲</div>
+                <div class="music_synopsis">歌手名</div>
             </div>
         </div>
         <div class="playerbar_middle">
@@ -141,7 +189,7 @@
             </div>
             <div class="playerbar_middle_down_father">
                 <div class="playerbar_middle_down">
-                    0:00/4:30
+                    0:00/0:00
                 </div>
                 <div class="playerbar_middle_down_control">
                     <div class="playerbar_middle_down_control_progress">
@@ -169,14 +217,26 @@
         <div class="playerbar_right">
             <div class="control">
                 <div class="playerbar_right_addmusic">
-                    <div class="playerbar_right_addmusic_image"></div>
+                    <div class="playerbar_right_addmusic_image">
+                        <svg width="20" height="20" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M938.516167 597.182834 85.483833 597.182834C38.527925 597.182834 0 559.256908 0 511.699001c0-46.955908 37.925926-85.483833 85.483833-85.483833l853.032334 0c46.955908 0 85.483833 37.925926 85.483833 85.483833C1024 559.256908 986.074074 597.182834 938.516167 597.182834L938.516167 597.182834 938.516167 597.182834zM512.300999 1024c-46.955908 0-85.483833-37.925926-85.483833-85.483833L426.817166 85.483833C426.817166 37.925926 464.743092 0 512.300999 0c46.955908 0 85.483833 37.925926 85.483833 85.483833l0 853.634333C597.182834 985.472075 559.256908 1024 512.300999 1024L512.300999 1024 512.300999 1024z"
+                                fill="currentColor" />
+                        </svg>
+                    </div>
                 </div>
                 <div class="cycleway">
                     <div class="cycleway_image"></div>
                 </div>
             </div>
             <div class="musicscreen">
-                <div class="musicscreen_image"></div>
+                <div class="musicscreen_image">
+                    <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                        <path id="my-svg-path"
+                            d="M18.221,7.206l9.585,9.585c0.879,0.879,0.879,2.317,0,3.195l-0.8,0.801c-0.877,0.878-2.316,0.878-3.194,0l-7.315-7.315l-7.315,7.315c-0.878,0.878-2.317,0.878-3.194,0l-0.8-0.801c-0.879-0.878-0.879-2.316,0-3.195l9.587-9.585c0.471-0.472,1.103-0.682,1.723-0.647C17.115,6.524,17.748,6.734,18.221,7.206z"
+                            fill="currentColor" />
+                    </svg>
+                </div>
             </div>
         </div>
     </div>
@@ -237,6 +297,22 @@
         </div>
 
     </div>
+
+    <!-- 登录按钮 -->
+    <!-- <button id="loginButton">登录</button> -->
+
+    <!-- 模态框 -->
+    <!-- <div class="overlay" id="overlay"></div> -->
+    <div class="modal" id="modal">
+        <h2>登录（第一次自动注册）</h2>
+        <input type="text" id="username" placeholder="用户名">
+        <input type="password" id="password" placeholder="密码">
+        <button id="confirmButton">确定</button>
+        <button id="cancelButton">取消</button>
+    </div>
+    <!-- 显示登录信息 -->
+    <div id="login_information">欢迎你:zjx</div>
+
 </body>
 <script src="js/globalData.js"></script>
 <script src="js/index.js"></script>

@@ -73,14 +73,15 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    filter: blur(20px) brightness(80%);
+    filter: blur(15px) brightness(80%);
     transition: all 0.2s;
     z-index: -1;
 }
 
 .content .box .music_image:hover::after {
+    top: 60%;
     width: 160px;
-    height: 160px;
+    height: 180px;
 }
 
 .content .box .music_image:hover {
@@ -89,4 +90,44 @@
     /* 向上偏移 */
     /* box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); */
     /* 放大阴影 */
+}
+
+.content .box .music_image::before {
+    content: "";
+    /* 伪元素必须设置 content */
+    display: none;
+    /* 默认隐藏伪元素 */
+    position: absolute;
+    /* 绝对定位 */
+    top: 50%;
+    /* 垂直居中 */
+    left: 50%;
+    /* 水平居中 */
+    transform: translate(-50%, -50%);
+    /* 精确居中 */
+    width: 40px;
+    /* 图片的宽度 */
+    height: 40px;
+    /* 图片的高度 */
+    background-image: url(../svg/mask.svg);
+    /* 替换为你的图片路径 */
+    /* background-size: cover; */
+    /* 图片覆盖整个伪元素 */
+    background-position: center;
+    /* 图片居中显示 */
+    border-radius: 50%;
+    /* 圆形效果 */
+    background-repeat: no-repeat;
+    /* 防止图片重复 */
+    background-color: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(4px);
+    /* 模糊效果 */
+    /* 半透明背景颜色 */
+    /* 或者使用 opacity 属性 */
+    /* opacity: 0.5; */
+}
+
+.content .box .music_image:hover::before {
+    display: block;
+    /* 鼠标悬停时显示伪元素 */
 }
