@@ -9,7 +9,7 @@
 - 支持本地（locastorage浏览器缓存)和云端(mysql)存储数据
 - 许多独特ui设计
 ### 使用须知
-- 可直接访问zhoujx.com（受限于api，可能出现数据接收错误返回undefine情况，不稳定）
+- 可直接访问music.zhoujx.com（受限于api，可能出现数据接收错误返回undefine情况，不稳定）
 - 下载源代码本地使用需要nodejs环境，并提前运行servers.js文件
 ```javascript
 node servers.js
